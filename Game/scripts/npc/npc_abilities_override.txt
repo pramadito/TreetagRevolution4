@@ -1,0 +1,1015 @@
+
+// Dota Abilities Override File
+"DOTAAbilities"
+{
+  "Version"   "1"
+//===================================================================================================================
+// Burnin ability
+//===================================================================================================================
+
+  //=================================================================================================================
+  // Magnataur: Shockwave
+  //=================================================================================================================
+  "magnataur_shockwave"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "FightRecapLevel"       "1"
+    "AbilityTextureName"     ""
+    "MaxLevel"              "4"
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "1150"
+    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "40 40 40 40"
+    "AbilityDuration"       "0.6875 0.6875 0.6875 0.6875"
+
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "90 90 90 90"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "shock_speed"       "1000"
+      }
+      
+      "02"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "shock_width"       "150"
+      }
+      "03"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "shock_damage"        "150 250 350 500"
+      }
+    }
+  }
+
+  //=================================================================================================================
+  // Ability: Great Cleave
+  //=================================================================================================================
+  "sven_great_cleave"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+        
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "great_cleave_radius" "150.0 200.0 250.0 300.0" // 1 interger
+      }
+      
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "great_cleave_damage" "50 50 50 50" // 4 interger
+      }
+    }
+  }
+
+  //=================================================================================================================
+  // 'Burning Rage'
+  //=================================================================================================================
+  "life_stealer_rage"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "ID"              "5249"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0"
+    "AbilityCastRange"        "0"
+    
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "16"
+    
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "75 75 75 75"
+    
+    "AbilityDuration"       "3 4 5 6"
+    
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "attack_speed_bonus"  "50 60 70 80"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "3.0 4.0 5.0 6.0"
+      }
+    }
+  }
+  //=================================================================================================================
+  // Tornado: Tempest
+  //=================================================================================================================
+  "tornado_tempest"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "MaxLevel"            "1"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+  
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "far_radius"      "600"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "movespeed_slow"    "-15"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "attackspeed_slow"    "-15"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "near_radius"     "150"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "near_damage"     "45"
+      }
+      "06"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "far_damage"      "15"
+      }
+      "07"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "tick_rate"       "0.25"
+      }
+    }
+  }
+
+  //=================================================================================================================
+  // Enraged Wildkin: Tornado
+  //=================================================================================================================
+  "enraged_wildkin_tornado"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "ID"              "5312"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+    "MaxLevel"            "1"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "500"
+    "AbilityCastPoint"        "0.75"
+    "AbilityCooldown"       "70.0"
+    "AbilityChannelTime"      "40.0"
+    "AbilityManaCost"       "200"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01" // Only for tooltip, redundant with AbilityChannelTime
+      {
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "40.0"
+      }
+    }
+  }
+//====================================================================================================================
+// Blaze ability
+//====================================================================================================================
+
+//=================================================================================================================
+  // Lion: Finger of Death
+  //=================================================================================================================
+  "lion_finger_of_death"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityType"         "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_BUILDING"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "FightRecapLevel"       "2"
+    "MaxLevel"            "4"
+    "HasScepterUpgrade"     "0"
+    "AbilityTextureName"     "blade_of_death"
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "700 800 900 1000"// 1 interger
+    "AbilityCastPoint"        "0 0 0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "15 15 15 15"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0 0 0"
+    
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityModifierSupportValue" "0.0" // Modifier just delays damage
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "damage"          "99999 99999 99999 99999" // 3 interger
+      }
+      "02"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "damage_scepter"      "99999 99999 99999 99999" // 3 interger
+      }
+      "03"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "mana_cost_scepter"     "15 15 15 15" // 3 interger
+      }
+      "04"
+      {
+        "var_type"          "FIELD_FLOAT"
+        "damage_delay"        "0"
+      }
+      "05"
+      {
+        "var_type"          "FIELD_FLOAT"
+        "cooldown_scepter"      "15 15 15 15" // 3 interger
+      }
+      "06"
+      {
+        "var_type"          "FIELD_FLOAT"
+        "splash_radius_scepter"   "0"
+      }
+    }
+  }
+
+   //=================================================================================================================
+  // Ember Spirit: Sleight of Fist
+  //=================================================================================================================
+  "ember_spirit_sleight_of_fist"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL"  
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    
+    "AbilityCastRange"        "500"
+    "AbilityCastPoint"        "0"
+    "FightRecapLevel"       "1"
+    "AbilityTextureName"   "flaming_black_sword"
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "10.0 10.0 10.0 10.0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "75"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "radius"          "250 325 400 475"
+      }
+      
+      "02"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "bonus_hero_damage"     "0 0 0 0"
+      }
+            
+      "03"
+      {
+        "var_type"            "FIELD_FLOAT"
+        "attack_interval"       "0.2"
+      }
+
+      "04"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "creep_damage_penalty"      "0 0 0 0"
+      }
+    }
+  }
+
+
+//=================================================================================================================
+  // Naga Siren: Ensnare
+  //=================================================================================================================
+  "naga_siren_ensnare"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitTargetFlags"    "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "FightRecapLevel"       "1"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0.00"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "60 50 45 40 "
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "80"
+    
+    // Cast Range
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "500 600 700 800"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"          "FIELD_FLOAT"
+        "duration"          "2.0 3.0 4.0 5.0"
+      }
+      "02"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "net_speed"         "1500 1500 1500 1500"
+      }
+      "03"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "fake_ensnare_distance"   "900 900 900 900" 
+      }
+    }
+  } 
+
+  //=================================================================================================================
+  // Death Prophet: Exorcism
+  //=================================================================================================================
+  "death_prophet_exorcism"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityType"         "DOTA_ABILITY_TYPE_ULTIMATE"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL"  
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "FightRecapLevel"       "2"
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0 0 0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "180.0"
+    "AbilityDuration"       "30 37.5 45"// 1 interger
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "150 200 250"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "radius"        "800 800 800"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "spirits"       "20 35 50"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "spirit_speed"      "400 400 400"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "max_distance"      "2500 2500 2500"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "give_up_distance"    "1350 1350 1350"
+      }
+      "06"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "min_damage"      "5000"
+      }
+      "07"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "max_damage"      "10000"
+      }
+      "08"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "heal_percent"      "25 25 25"
+      }
+      "09"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "average_damage"    "7500 7500 7500"
+      }
+      "10"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "ghost_spawn_rate"  "0.2"
+      }
+    }
+  } 
+  
+//===================================================================================================================
+// Pyra ability
+//===================================================================================================================
+
+//=================================================================================================================
+// Lion: Impale
+//=================================================================================================================
+  "lion_impale"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "FightRecapLevel"       "1"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "500"
+    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
+    
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "12.0 12.0 12.0 12.0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "100 120 140 160"
+    
+    // Damage.
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityDamage"         "80 140 200 260"
+    
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "width"       "125 125 125 125"
+      }
+      "02"
+      { 
+        "var_type"      "FIELD_FLOAT"
+        "duration"      "1.1 1.6 2.1 2.6"
+      }
+      "03"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "length_buffer"   "325"
+      }
+      "04"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "speed"       "1600 1600 1600 1600"
+      }
+    }
+  }
+
+  //=================================================================================================================
+  // Lycan: Summon Wolves
+  //=================================================================================================================
+  "lycan_summon_wolves"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "ID"          "5395"                            // unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "30.0 30.0 30.0 30.0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "145"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "wolf_index"        "1 2 3 4"
+      }
+      "02"
+      {
+        "var_type"          "FIELD_FLOAT"
+        "wolf_duration"       "55.0 55.0 55.0 55.0"
+      }
+      "03"
+      {
+        "var_type"          "FIELD_FLOAT"
+        "wolf_bat"          "1.25 1.2 1.15 1.1"
+      }
+      "04"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "wolf_damage"       "18 29 37 46"
+      }
+      "05"
+      {
+        "var_type"          "FIELD_INTEGER"
+        "wolf_hp"         "200 240 280 320"
+      }
+    }
+  }
+
+  //=================================================================================================================
+  // Ability: Crystal Maiden's Brilliance Aura
+  //=================================================================================================================
+  "crystal_maiden_brilliance_aura"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0.2"
+    
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_FLOAT"
+        "mana_regen"    "0.75 1.5 2.25 3.0"
+      }
+      "02"
+      {
+        "var_type"      "FIELD_FLOAT"
+        "mana_regen_self" "0 0 0 0"
+      }
+    }
+  }
+  //=================================================================================================================
+  // Ability: Crystal Maiden's Freezing Field
+  //=================================================================================================================
+  "crystal_maiden_freezing_field"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityType"         "DOTA_ABILITY_TYPE_ULTIMATE"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"  "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_BUILDING"
+    "FightRecapLevel"       "2"
+    "HasScepterUpgrade"     "0"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0 0 0"
+    //"AbilityChannelTime"      "10"
+    "AbilityCastRange"        "3000"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "210"
+    "AbilityDuration"       "10.0 11.0 12.0" // 1 interger
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "250 250 250"
+
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityModifierSupportValue" "0.35"  // Primarily about the damage
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "radius"      "800 1200 1400" // 1 interger
+      }   
+      "02"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "explosion_radius"  "300"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "explosion_interval"  "0.05"
+      }
+      "05"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "movespeed_slow"  "-30"
+      }
+      "06"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "attack_slow" "-30"
+      }
+      "07"
+      {
+        "var_type"      "FIELD_FLOAT"
+        "slow_duration"   "1.0"
+      }
+      "08"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "explosion_min_dist"  "195"
+      }
+      "09"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "explosion_max_dist"  "750 1150 1350 "// 1 interger
+
+      }
+      "10"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "damage"      "500 1000 1500"
+      }
+      "11"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "damage_scepter"  "170 250 310"
+      }
+      "12"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "movespeed_slow_scepter" "-50"
+      }
+      "13"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "attack_slow_scepter" "-50"
+      }
+      "14"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "duration_tooltip"  "10 12 14" // 1 interger
+      }
+
+    }
+  }
+
+  // -----------------------------------------------------------
+  // - UNCOMMENT ANY ITEM YOU DON'T WANT TO APPEAR IN THE SHOP -
+  // -----------------------------------------------------------
+  
+  //"item_blink"      "REMOVE"
+  //"item_blades_of_attack"     "REMOVE"
+  //"item_broadsword"     "REMOVE"
+  //"item_chainmail"      "REMOVE"
+  //"item_claymore"     "REMOVE"
+  //"item_helm_of_iron_will"      "REMOVE"
+  //"item_javelin"      "REMOVE"
+  //"item_mithril_hammer"     "REMOVE"
+  //"item_platemail"      "REMOVE"
+  //"item_quarterstaff"     "REMOVE"
+  //"item_quelling_blade"     "REMOVE"
+  //"item_ring_of_protection"     "REMOVE"
+  //"item_stout_shield"     "REMOVE"
+  //"item_gauntlets"      "REMOVE"
+  //"item_slippers"     "REMOVE"
+  //"item_mantle"     "REMOVE"
+  //"item_branches"     "REMOVE"
+  //"item_belt_of_strength"     "REMOVE"
+  //"item_boots_of_elves"     "REMOVE"
+  //"item_robe"     "REMOVE"
+  //"item_circlet"      "REMOVE"
+  //"item_ogre_axe"     "REMOVE"
+  //"item_blade_of_alacrity"      "REMOVE"
+  //"item_staff_of_wizardry"      "REMOVE"
+  //"item_ultimate_orb"     "REMOVE"
+  //"item_gloves"     "REMOVE"
+  //"item_lifesteal"      "REMOVE"
+  //"item_ring_of_regen"      "REMOVE"
+  //"item_sobi_mask"      "REMOVE"
+  //"item_boots"      "REMOVE"
+  //"item_gem"      "REMOVE"
+  //"item_cloak"      "REMOVE"
+  //"item_talisman_of_evasion"      "REMOVE"
+  //"item_cheese"     "REMOVE"
+  //"item_magic_stick"      "REMOVE"
+  //"item_recipe_magic_wand"      "REMOVE"
+  //"item_magic_wand"     "REMOVE"
+  //"item_ghost"      "REMOVE"
+  //"item_clarity"      "REMOVE"
+  //"item_flask"      "REMOVE"
+  //"item_dust"     "REMOVE"
+  //"item_bottle"     "REMOVE"
+  //"item_ward_observer"      "REMOVE"
+  //"item_ward_sentry"      "REMOVE"
+  //"item_tango"      "REMOVE"
+  //"item_tango_single"     "REMOVE"
+  //"item_courier"      "REMOVE"
+  //"item_tpscroll"     "REMOVE"
+  //"item_recipe_travel_boots"      "REMOVE"
+  //"item_travel_boots"     "REMOVE"
+  //"item_recipe_phase_boots"     "REMOVE"
+  //"item_phase_boots"      "REMOVE"
+  //"item_demon_edge"     "REMOVE"
+  //"item_eagle"      "REMOVE"
+  //"item_reaver"     "REMOVE"
+  //"item_relic"      "REMOVE"
+  //"item_hyperstone"     "REMOVE"
+  //"item_ring_of_health"     "REMOVE"
+  //"item_void_stone"     "REMOVE"
+  //"item_mystic_staff"     "REMOVE"
+  //"item_energy_booster"     "REMOVE"
+  //"item_point_booster"      "REMOVE"
+  //"item_vitality_booster"     "REMOVE"
+  //"item_recipe_power_treads"      "REMOVE"
+  //"item_power_treads"     "REMOVE"
+  //"item_recipe_hand_of_midas"     "REMOVE"
+  //"item_hand_of_midas"      "REMOVE"
+  //"item_recipe_oblivion_staff"      "REMOVE"
+  //"item_oblivion_staff"     "REMOVE"
+  //"item_recipe_pers"      "REMOVE"
+  //"item_pers"     "REMOVE"
+  //"item_recipe_poor_mans_shield"      "REMOVE"
+  //"item_poor_mans_shield"     "REMOVE"
+  //"item_recipe_bracer"      "REMOVE"
+  //"item_bracer"     "REMOVE"
+  //"item_recipe_wraith_band"     "REMOVE"
+  //"item_wraith_band"      "REMOVE"
+  //"item_recipe_null_talisman"     "REMOVE"
+  //"item_null_talisman"      "REMOVE"
+  //"item_recipe_mekansm"     "REMOVE"
+  //"item_mekansm"      "REMOVE"
+  //"item_recipe_vladmir"     "REMOVE"
+  //"item_vladmir"      "REMOVE"
+  //"item_flying_courier"     "REMOVE"
+  //"item_recipe_buckler"     "REMOVE"
+  //"item_buckler"      "REMOVE"
+  //"item_recipe_ring_of_basilius"      "REMOVE"
+  //"item_ring_of_basilius"     "REMOVE"
+  //"item_recipe_pipe"      "REMOVE"
+  //"item_pipe"     "REMOVE"
+  //"item_recipe_urn_of_shadows"      "REMOVE"
+  //"item_urn_of_shadows"     "REMOVE"
+  //"item_recipe_headdress"     "REMOVE"
+  //"item_headdress"      "REMOVE"
+  //"item_recipe_sheepstick"      "REMOVE"
+  //"item_sheepstick"     "REMOVE"
+  //"item_recipe_orchid"      "REMOVE"
+  //"item_orchid"     "REMOVE"
+  //"item_recipe_cyclone"     "REMOVE"
+  //"item_cyclone"      "REMOVE"
+  //"item_recipe_force_staff"     "REMOVE"
+  //"item_force_staff"      "REMOVE"
+  //"item_recipe_dagon"     "REMOVE"
+  //"item_recipe_dagon_2"     "REMOVE"
+  //"item_recipe_dagon_3"     "REMOVE"
+  //"item_recipe_dagon_4"     "REMOVE"
+  //"item_recipe_dagon_5"     "REMOVE"
+  //"item_dagon"      "REMOVE"
+  //"item_dagon_2"      "REMOVE"
+  //"item_dagon_3"      "REMOVE"
+  //"item_dagon_4"      "REMOVE"
+  //"item_dagon_5"      "REMOVE"
+  //"item_recipe_necronomicon"      "REMOVE"
+  //"item_recipe_necronomicon_2"      "REMOVE"
+  //"item_recipe_necronomicon_3"      "REMOVE"
+  //"item_necronomicon"     "REMOVE"
+  //"item_necronomicon_2"     "REMOVE"
+  //"item_necronomicon_3"     "REMOVE"
+  //"item_recipe_ultimate_scepter"      "REMOVE"
+  //"item_ultimate_scepter"     "REMOVE"
+  //"item_recipe_refresher"     "REMOVE"
+  //"item_refresher"      "REMOVE"
+  //"item_recipe_assault"     "REMOVE"
+  //"item_assault"      "REMOVE"
+  //"item_recipe_heart"     "REMOVE"
+  //"item_heart"      "REMOVE"
+  //"item_recipe_black_king_bar"      "REMOVE"
+  //"item_black_king_bar"     "REMOVE"
+  //"item_aegis"      "REMOVE"
+  //"item_recipe_shivas_guard"      "REMOVE"
+  //"item_shivas_guard"     "REMOVE"
+  //"item_recipe_bloodstone"      "REMOVE"
+  //"item_bloodstone"     "REMOVE"
+  //"item_recipe_sphere"      "REMOVE"
+  //"item_sphere"     "REMOVE"
+  //"item_recipe_reflex_energy_regen_booster"     "REMOVE"
+  //"item_vanguard"     "REMOVE"
+  //"item_recipe_blade_mail"      "REMOVE"
+  //"item_blade_mail"     "REMOVE"
+  //"item_recipe_soul_booster"      "REMOVE"
+  //"item_soul_booster"     "REMOVE"
+  //"item_recipe_hood_of_defiance"      "REMOVE"
+  //"item_hood_of_defiance"     "REMOVE"
+  //"item_recipe_rapier"      "REMOVE"
+  //"item_rapier"     "REMOVE"
+  //"item_recipe_monkey_king_bar"     "REMOVE"
+  //"item_monkey_king_bar"      "REMOVE"
+  //"item_recipe_radiance"      "REMOVE"
+  //"item_radiance"     "REMOVE"
+  //"item_recipe_butterfly"     "REMOVE"
+  //"item_butterfly"      "REMOVE"
+  //"item_recipe_greater_crit"      "REMOVE"
+  //"item_greater_crit"     "REMOVE"
+  //"item_recipe_basher"      "REMOVE"
+  //"item_basher"     "REMOVE"
+  //"item_recipe_bfury"     "REMOVE"
+  //"item_bfury"      "REMOVE"
+  //"item_recipe_manta"     "REMOVE"
+  //"item_manta"      "REMOVE"
+  //"item_recipe_lesser_crit"     "REMOVE"
+  //"item_lesser_crit"      "REMOVE"
+  //"item_recipe_armlet"      "REMOVE"
+  //"item_armlet"     "REMOVE"
+  //"item_recipe_invis_sword"     "REMOVE"
+  //"item_invis_sword"      "REMOVE"
+  //"item_recipe_sange_and_yasha"     "REMOVE"
+  //"item_sange_and_yasha"      "REMOVE"
+  //"item_recipe_satanic"     "REMOVE"
+  //"item_satanic"      "REMOVE"
+  //"item_recipe_mjollnir"      "REMOVE"
+  //"item_mjollnir"     "REMOVE"
+  //"item_recipe_skadi"     "REMOVE"
+  //"item_skadi"      "REMOVE"
+  //"item_recipe_sange"     "REMOVE"
+  //"item_sange"      "REMOVE"
+  //"item_recipe_helm_of_the_dominator"     "REMOVE"
+  //"item_helm_of_the_dominator"      "REMOVE"
+  //"item_recipe_maelstrom"     "REMOVE"
+  //"item_maelstrom"      "REMOVE"
+  //"item_recipe_desolator"     "REMOVE"
+  //"item_desolator"      "REMOVE"
+  //"item_recipe_yasha"     "REMOVE"
+  //"item_yasha"      "REMOVE"
+  //"item_recipe_mask_of_madness"     "REMOVE"
+  //"item_mask_of_madness"      "REMOVE"
+  //"item_recipe_diffusal_blade"      "REMOVE"
+  //"item_recipe_diffusal_blade_2"      "REMOVE"
+  //"item_diffusal_blade"     "REMOVE"
+  //"item_diffusal_blade_2"     "REMOVE"
+  //"item_recipe_ethereal_blade"      "REMOVE"
+  //"item_ethereal_blade"     "REMOVE"
+  //"item_recipe_soul_ring"     "REMOVE"
+  //"item_soul_ring"      "REMOVE"
+  //"item_recipe_arcane_boots"      "REMOVE"
+  //"item_arcane_boots"     "REMOVE"
+  //"item_orb_of_venom"     "REMOVE"
+  //"item_recipe_ancient_janggo"      "REMOVE"
+  //"item_ancient_janggo"     "REMOVE"
+  //"item_recipe_medallion_of_courage"      "REMOVE"
+  //"item_medallion_of_courage"     "REMOVE"
+  //"item_smoke_of_deceit"      "REMOVE"
+  //"item_recipe_veil_of_discord"     "REMOVE"
+  //"item_veil_of_discord"      "REMOVE"
+  //"item_recipe_rod_of_atos"     "REMOVE"
+  //"item_rod_of_atos"      "REMOVE"
+  //"item_recipe_abyssal_blade"     "REMOVE"
+  //"item_abyssal_blade"      "REMOVE"
+  //"item_recipe_heavens_halberd"     "REMOVE"
+  //"item_heavens_halberd"      "REMOVE"
+  //"item_recipe_ring_of_aquila"      "REMOVE"
+  //"item_ring_of_aquila"     "REMOVE"
+  //"item_recipe_tranquil_boots"      "REMOVE"
+  //"item_tranquil_boots"     "REMOVE"
+  //"item_shadow_amulet"      "REMOVE"
+  
+  
+  //"item_halloween_candy_corn"     "REMOVE"
+  //"item_mystery_hook"     "REMOVE"
+  //"item_mystery_arrow"      "REMOVE"
+  //"item_mystery_missile"      "REMOVE"
+  //"item_mystery_toss"     "REMOVE"
+  //"item_mystery_vacuum"     "REMOVE"
+  //"item_halloween_rapier"     "REMOVE"
+  //"item_greevil_whistle"      "REMOVE"
+  //"item_greevil_whistle_toggle"     "REMOVE"
+  //"item_present"      "REMOVE"
+  //"item_winter_stocking"      "REMOVE"
+  //"item_winter_skates"      "REMOVE"
+  //"item_winter_cake"      "REMOVE"
+  //"item_winter_cookie"      "REMOVE"
+  //"item_winter_coco"      "REMOVE"
+  //"item_winter_ham"     "REMOVE"
+  //"item_winter_kringle"     "REMOVE"
+  //"item_winter_mushroom"      "REMOVE"
+  //"item_winter_greevil_treat"     "REMOVE"
+  //"item_winter_greevil_garbage"     "REMOVE"
+  //"item_winter_greevil_chewy"     "REMOVE"
+  
+  //"item_recipe_moon_shard"      "REMOVE"
+  //"item_moon_shard"     "REMOVE"  
+  //"item_enchanted_mango"      "REMOVE"  
+  //"item_recipe_travel_boots_2"      "REMOVE"  
+  //"item_travel_boots_2"     "REMOVE"  
+  //"item_recipe_lotus_orb"     "REMOVE"  
+  //"item_lotus_orb"      "REMOVE"  
+  //"item_recipe_crimson_guard"     "REMOVE"  
+  //"item_crimson_guard"      "REMOVE"  
+  //"item_recipe_silver_edge"     "REMOVE"  
+  //"item_silver_edge"      "REMOVE"  
+  //"item_recipe_octarine_core"     "REMOVE"  
+  //"item_octarine_core"      "REMOVE"  
+  //"item_recipe_solar_crest"     "REMOVE"  
+  //"item_solar_crest"      "REMOVE"  
+  //"item_recipe_guardian_greaves"      "REMOVE"  
+  //"item_guardian_greaves"     "REMOVE"  
+  //"item_recipe_glimmer_cape"      "REMOVE"  
+  //"item_glimmer_cape"     "REMOVE"  
+
+  //"item_faerie_fire"     "REMOVE"
+  //"item_recipe_aether_lens"     "REMOVE"
+  //"item_aether_lens"     "REMOVE"
+  //"item_recipe_dragon_lance"     "REMOVE"
+  //"item_dragon_lance"     "REMOVE"
+  //"item_recipe_iron_talon"     "REMOVE"
+  //"item_iron_talon"     "REMOVE"
+
+  //"item_recipe_bloodthorn"      "REMOVE"
+  //"item_bloodthorn"      "REMOVE"
+  //"item_wind_lace"      "REMOVE"
+  //"item_infused_raindrop"      "REMOVE"
+  //"item_blight_stone"      "REMOVE"
+  //"item_recipe_echo_sabre"      "REMOVE"
+  //"item_echo_sabre"      "REMOVE"
+  //"item_tome_of_knowledge"      "REMOVE"
+  //"item_recipe_hurricane_pike"      "REMOVE"
+  //"item_hurricane_pike"      "REMOVE"
+  //"item_banana"      "REMOVE"
+}

@@ -1,0 +1,8 @@
+treetag_evolution_reborn_1.04
+{
+	material materials/overviews/treetag_evolution_reborn_1.04.vmat
+	pos_x -8192
+	pos_y 8192
+	scale 16.000
+}
+
