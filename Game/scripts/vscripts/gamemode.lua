@@ -13,7 +13,7 @@ end
 -- This library allow for easily delayed/timed actions
 require('libraries/timers')
 -- This library can be used for advancted physics/motion/collision of units.  See PhysicsReadme.txt for more information.
-require('libraries/physics')
+--require('libraries/physics')
 -- This library can be used for advanced 3D projectile systems.
 require('libraries/projectiles')
 -- This library can be used for sending panorama notifications to the UIs of players/teams/everyone
@@ -29,14 +29,15 @@ require('libraries/containers')
 -- This library provides a searchable, automatically updating lua API in the tools-mode via "modmaker_api" console command
 require('libraries/modmaker')
 -- This library provides an automatic graph construction of path_corner entities within the map
-require('libraries/pathgraph')
+--require('libraries/pathgraph')
 -- This library (by Noya) provides player selection inspection and management from server lua
 require('libraries/selection')
-
+-- copied from tne
+require('libraries/entity')
 -- These internal libraries set up barebones's events and processes.  Feel free to inspect them/change them if you need to.
 require('internal/gamemode')
 require('internal/events')
-
+require('internal/util')
 -- settings.lua is where you can specify many different properties for your game mode and is one of the core barebones files.
 require('settings')
 -- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
@@ -44,10 +45,6 @@ require('events')
 
 
 -- This is a detailed example of many of the containers.lua possibilities, but only activates if you use the provided "playground" map
-if GetMapName() == "playground" then
-  require("examples/playground")
-end
-
 --require("examples/worldpanelsExample")
 
 --[[
@@ -98,21 +95,12 @@ end
   The hero parameter is the hero entity that just spawned in
 ]]
 function GameMode:OnHeroInGame(hero)
-  DebugPrint("[BAREBONES] Hero spawned in game for first time -- " .. hero:GetUnitName())
-
-  -- This line for example will set the starting gold of every hero to 500 unreliable gold
-  --hero:SetGold(500, false)
-
-  -- These lines will create an item and add it to the player, effectively ensuring they start with the item
-  local item = CreateItem("item_example_item", hero, hero)
-  hero:AddItem(item)
-
-  --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
-    --with the "example_ability" ability
-
-  local abil = hero:GetAbilityByIndex(1)
-  hero:RemoveAbility(abil:GetAbilityName())
-  hero:AddAbility("example_ability")]]
+  hero:HideWearables()
+  hero:ClearInventory()
+  -- ==================== For Treant ====================== (Change Later)
+  local treant_hand = CreateItem("item_treant_hand", hero, hero)
+  hero:AddItem(treant_hand)
+  -- ==================== For Infernal =================== (Change Later)
 end
 
 --[[
@@ -137,6 +125,7 @@ end
 function GameMode:InitGameMode()
   GameMode = self
   DebugPrint('[BAREBONES] Starting to load Barebones gamemode...')
+  GameMode:_InitGameMode()
 
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
   Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )

@@ -1,0 +1,8 @@
+treetag_evolution_reborn_103_made_by_pramadito
+{
+	material materials/overviews/treetag_evolution_reborn_103_made_by_pramadito.vmat
+	pos_x -7040
+	pos_y 7680
+	scale 14.500
+}
+

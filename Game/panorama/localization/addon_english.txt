@@ -5,7 +5,7 @@
 	"Neutrals"        								"Neutral Team"
 	"NoTeam"          								"No Team"
 
-	"DOTA_GoodGuys"   								"Teal Tiger"
+	"DOTA_GoodGuys"   								"Treant"
 	"DOTA_BadGuys"    								"Yellow Monkey"
 	"DOTA_Custom1"    								"Pink Dragon"
 	"DOTA_Custom2"    								"Orange Dog"

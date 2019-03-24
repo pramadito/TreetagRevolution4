@@ -1,20 +1,20 @@
 -- In this file you can set up all the properties and settings for your game mode.
 
 
-ENABLE_HERO_RESPAWN = true              -- Should the heroes automatically respawn on a timer or stay dead until manually respawned
+ENABLE_HERO_RESPAWN = false            -- Should the heroes automatically respawn on a timer or stay dead until manually respawned
 UNIVERSAL_SHOP_MODE = false             -- Should the main shop contain Secret Shop items as well as regular items
 ALLOW_SAME_HERO_SELECTION = true        -- Should we let people select the same hero as each other
 
-HERO_SELECTION_TIME = 30.0              -- How long should we let people select their hero?
-PRE_GAME_TIME = 5.0                    -- How long after people select their heroes should the horn blow and the game start?
+HERO_SELECTION_TIME = 0.0             -- How long should we let people select their hero?
+PRE_GAME_TIME = 1.0                    -- How long after people select their heroes should the horn blow and the game start?
 POST_GAME_TIME = 60.0                   -- How long should we let people look at the scoreboard before closing the server automatically?
-TREE_REGROW_TIME = 60.0                 -- How long should it take individual trees to respawn after being cut down/destroyed?
+TREE_REGROW_TIME = 1800.0                 -- How long should it take individual trees to respawn after being cut down/destroyed?
 
 GOLD_PER_TICK = 100                     -- How much gold should players get per tick?
 GOLD_TICK_TIME = 5                      -- How long should we wait in seconds between gold ticks?
 
-RECOMMENDED_BUILDS_DISABLED = false     -- Should we disable the recommened builds for heroes
-CAMERA_DISTANCE_OVERRIDE = -1           -- How far out should we allow the camera to go?  Use -1 for the default (1134) while still allowing for panorama camera distance changes
+RECOMMENDED_BUILDS_DISABLED = true    -- Should we disable the recommened builds for heroes
+CAMERA_DISTANCE_OVERRIDE = 1800.0           -- How far out should we allow the camera to go?  Use -1 for the default (1134) while still allowing for panorama camera distance changes
 
 MINIMAP_ICON_SIZE = 1                   -- What icon size should we use for our heroes?
 MINIMAP_CREEP_ICON_SIZE = 1             -- What icon size should we use for creeps?
@@ -58,7 +58,7 @@ LOSE_GOLD_ON_DEATH = true               -- Should we have players lose the norma
 SHOW_ONLY_PLAYER_INVENTORY = false      -- Should we only allow players to see their own inventory even when selecting other units?
 DISABLE_STASH_PURCHASING = false        -- Should we prevent players from being able to buy items into their stash when not at a shop?
 DISABLE_ANNOUNCER = false               -- Should we disable the announcer from working in the game?
-FORCE_PICKED_HERO = nil                 -- What hero should we force all players to spawn as? (e.g. "npc_dota_hero_axe").  Use nil to allow players to pick their own hero.
+FORCE_PICKED_HERO = "npc_dota_hero_antimage"-- What hero should we force all players to spawn as? (e.g. "npc_dota_hero_axe").  Use nil to allow players to pick their own hero.
 
 FIXED_RESPAWN_TIME = -1                 -- What time should we use for a fixed respawn timer?  Use -1 to keep the default dota behavior.
 FOUNTAIN_CONSTANT_MANA_REGEN = -1       -- What should we use for the constant fountain mana regen?  Use -1 to keep the default dota behavior.
@@ -90,7 +90,7 @@ ENABLED_RUNES[DOTA_RUNE_BOUNTY] = true
 ENABLED_RUNES[DOTA_RUNE_ARCANE] = true
 
 
-MAX_NUMBER_OF_TEAMS = 10                -- How many potential teams can be in this game mode?
+MAX_NUMBER_OF_TEAMS = 2               -- How many potential teams can be in this game mode?
 USE_CUSTOM_TEAM_COLORS = true           -- Should we use custom team colors?
 USE_CUSTOM_TEAM_COLORS_FOR_PLAYERS = true          -- Should we use custom team colors to color the players/minimap?
 
@@ -107,16 +107,16 @@ TEAM_COLORS[DOTA_TEAM_CUSTOM_7] = { 199, 228, 13 }  --    Olive
 TEAM_COLORS[DOTA_TEAM_CUSTOM_8] = { 140, 42, 244 }  --    Purple
 
 
-USE_AUTOMATIC_PLAYERS_PER_TEAM = true   -- Should we set the number of players to 10 / MAX_NUMBER_OF_TEAMS?
+USE_AUTOMATIC_PLAYERS_PER_TEAM = false   -- Should we set the number of players to 10 / MAX_NUMBER_OF_TEAMS?
 
 CUSTOM_TEAM_PLAYER_COUNT = {}           -- If we're not automatically setting the number of players per team, use this table
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_GOODGUYS] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_BADGUYS]  = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_1] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_2] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_3] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_4] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_5] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_6] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_7] = 1
-CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_8] = 1
+CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_GOODGUYS] = 9
+CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_BADGUYS]  = 3
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_1] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_2] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_3] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_4] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_5] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_6] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_7] = 1
+-- CUSTOM_TEAM_PLAYER_COUNT[DOTA_TEAM_CUSTOM_8] = 1

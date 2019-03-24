@@ -35,17 +35,15 @@ function Precache( context )
 
   -- Entire items can be precached by name
   -- Abilities can also be precached in this way despite the name
-  PrecacheItemByNameSync("example_ability", context)
-  PrecacheItemByNameSync("item_example_item", context)
+  PrecacheItemByNameSync("item_treant_hand", context)
 
   -- Entire heroes (sound effects/voice/models/particles) can be precached with PrecacheUnitByNameSync
   -- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
-  PrecacheUnitByNameSync("npc_dota_hero_ancient_apparition", context)
-  PrecacheUnitByNameSync("npc_dota_hero_enigma", context)
+  PrecacheUnitByNameSync("npc_dota_hero_antimage", context)
 end
 
 -- Create the game mode when we activate
 function Activate()
   GameRules.GameMode = GameMode()
-  GameRules.GameMode:_InitGameMode()
+  GameRules.GameMode:InitGameMode()
 end
