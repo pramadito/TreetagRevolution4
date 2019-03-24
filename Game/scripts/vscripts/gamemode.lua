@@ -99,6 +99,7 @@ function GameMode:OnHeroInGame(hero)
   hero:ClearInventory()
   -- ==================== For Treant ====================== (Change Later)
   local treant_hand = CreateItem("item_treant_hand", hero, hero)
+  local treant_blink = CreateItem("item_treant_blink", hero, hero)
   hero:AddItem(treant_hand)
   -- ==================== For Infernal =================== (Change Later)
 end

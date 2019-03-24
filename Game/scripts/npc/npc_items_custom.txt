@@ -4,20 +4,31 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------
+		"ID"						    "3000"
+		"BaseClass"					    "item_datadriven"
+		"AbilityTextureName"			"item_treant_hand"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
 
 		"AbilityCastRange"				"64"
-		"AbilityCastPoint"				"1.5"
+		"AbilityCastPoint"				"1.0"
 		"AbilityCooldown"				"0.0"
-		"Model"							"models/props_gameplay/quelling_blade.vmdl"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemDroppable" 				"0"
 		"ItemPurchasable" 				"0"
 		"ItemSellable"					"0"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/item_treant_hand.lua"
+				"Function"		"DestroyTree"
+			}
+		}
 	}
 	"item_treant_blink"
 	{

@@ -2,7 +2,7 @@
 // Dota Abilities Override File
 "DOTAAbilities"
 {
-  "destroy_tree_treant"
+  "destroy_tree_treant" //this is suck
   {
     // General  
     // ----------------------------------------------------------------------------------------
@@ -22,7 +22,11 @@
 
     "OnSpellStart"
     {
-      
+        "RunScript"
+        {
+            "ScriptFile"    "item_treant_hand.lua"
+            "Function"      "DestroyTree"
+        }
     }
   }
 }
