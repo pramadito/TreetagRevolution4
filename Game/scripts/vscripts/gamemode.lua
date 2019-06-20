@@ -1,4 +1,4 @@
--- This is the primary barebones gamemode script and should be used to assist in initializing your game mode
+  -- This is the primary barebones gamemode script and should be used to assist in initializing your game mode
 BAREBONES_VERSION = "1.00"
 
 -- Set this to true if you want to see a complete debug output of all events/processes done by barebones
@@ -23,16 +23,13 @@ require('libraries/animations')
 -- This library can be used for performing "Frankenstein" attachments on units
 require('libraries/attachments')
 -- This library can be used to synchronize client-server data via player/client-specific nettables
-require('libraries/playertables')
--- This library can be used to create container inventories or container shops
-require('libraries/containers')
+--require('libraries/playertables')
 -- This library provides a searchable, automatically updating lua API in the tools-mode via "modmaker_api" console command
 require('libraries/modmaker')
--- This library provides an automatic graph construction of path_corner entities within the map
---require('libraries/pathgraph')
 -- This library (by Noya) provides player selection inspection and management from server lua
 require('libraries/selection')
 -- copied from tne
+require('libraries/player')
 require('libraries/entity')
 -- These internal libraries set up barebones's events and processes.  Feel free to inspect them/change them if you need to.
 require('internal/gamemode')
@@ -85,8 +82,52 @@ end
 ]]
 function GameMode:OnAllPlayersLoaded()
   DebugPrint("[BAREBONES] All Players have loaded into the game")
+
 end
 
+
+function InitializeHero(hero)
+	PlayerResource:SetGold(hero,0)
+  PlayerResource:SetLumber(hero,0)
+  Timers:CreateTimer(0.25,function()
+  local player = PlayerResource:GetPlayer(pID)
+    if player then
+      CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = PlayerResource:GetLumber(pID) })
+      CustomGameEventManager:Send_ServerToPlayer(player, "player_custom_gold_changed", { gold = PlayerResource:GetGold(pID) })
+    end
+    return 0.25
+  end)
+end
+--======================== Initialize Treant ===========================
+function InitializeBuilder(hero)
+  InitializeHero(hero)
+  hero:ClearInventory()
+  local treant_hand_1 = CreateItem("item_treant_hand_1", hero, hero)
+  local treant_hand_2 = CreateItem("item_treant_hand_2", hero, hero)
+  local treant_blink = CreateItem("item_treant_blink", hero, hero)
+
+  hero:AddItem(treant_hand_1)
+  hero:AddItem(treant_hand_2)
+  hero:AddItem(treant_blink)
+
+
+  -- ==================== Make every abilities maxed ===================
+  for i=0,15 do
+    local ability = hero:GetAbilityByIndex(i)
+    if ability then ability:SetLevel(ability:GetMaxLevel()) end
+  end
+end
+
+--======================== Initialize Infernal =========================
+function InitializeInfernal(hero)
+  -- body
+  hero:ClearInventory()
+
+  local infernal_obs
+  local infernal_altar
+  local infernal_market
+  
+end
 --[[
   This function is called once and only once for every player when they spawn into the game for the first time.  It is also called
   if the player's hero is replaced with a new hero for any reason.  This function is useful for initializing heroes, such as adding
@@ -95,14 +136,10 @@ end
   The hero parameter is the hero entity that just spawned in
 ]]
 function GameMode:OnHeroInGame(hero)
-  hero:HideWearables()
-  hero:ClearInventory()
-  -- ==================== For Treant ====================== (Change Later)
-  local treant_hand = CreateItem("item_treant_hand", hero, hero)
-  local treant_blink = CreateItem("item_treant_blink", hero, hero)
-  hero:AddItem(treant_hand)
-  -- ==================== For Infernal =================== (Change Later)
+	InitializeBuilder(hero)
 end
+
+
 
 --[[
   This function is called once and only once when the game completely begins (about 0:00 on the clock).  At this point,
@@ -142,9 +179,71 @@ function GameMode:ExampleConsoleCommand()
     local playerID = cmdPlayer:GetPlayerID()
     if playerID ~= nil and playerID ~= -1 then
       -- Do something here for the player who called this command
-      PlayerResource:ReplaceHeroWith(playerID, "npc_dota_hero_viper", 1000, 1000)
+      PlayerResource:SetGold(playerID, 1000, true)
     end
   end
 
   print( '*********************************************' )
 end
+
+--========================GAME RULES=========================
+--50 GOLD, 100 WOOD; GET GOLD AND WOOD PER 5 SECONDS + RESOURCE STORAGE; THIS IS FOR ENT
+--****; THIS IS FOR INFERNAL
+--100 MAX FOOD
+--RESOURCE STORE 4 WOOD + 2 GOLD, BIG RESOURCE STORAGE 6 WOOD + 8 GOLD, GREAT RESOURCE STORAGE 10 GOLD + 10 WOOD
+--WISP 5 WOOD /10 SECONDS
+--GAME LAST 45 MINS
+--IF ENT ALL DIED, INFERNAL WINS. IF GAME TIMER IS UP ENT WINS.
+--INFERNAL CANNOT DIE AND WILL ALWAYS REINCARNATE.
+--========================BUILDINGS==========================
+--(BASIC+ADVANCED) BASIC TREE 0 GOLD, 0 WOOD 5 SEC CONSTRUCTION, BIG TREE, GIANT TREE (MIGHT NOT NEEDED)
+--(BASIC+ADVANCED) ARMORED TREE 20 WOOD 5 SEC CONSTRUCTION (MIGHT NOT NEEDED)
+--RESOUCE STORAGE 20 GOLD, 40 WOOD; BIG RESOURCE STORAGE 60 GOLD, 100 WOOD; GREAT RESOURCE STORAGE 100 GOLD, 120 WOOD 15 SEC CONSTRUCTION
+--(ADVANCED) SENTRY TOWER 20 GOLD, 20 WOOD 15 SEC CONSTRUCTION
+--AURA TOWER 40 GOLD, 60 WOOD 15 SEC CONSTRUCTION
+--INVISIBLE TREE 30 GOLD, 50 WOOD 15 SEC CONSTRUCTION
+--TREE OF LIFE 100 GOLD, 200 WOOD, 60 SEC CONSTRUCTION
+--(ADVANCED) ITEM SHOP (MAYBE NOT)
+--(ADVANCED) CRYSTAL BALL DETECTOR 100 GOLD, 150 WOOD 20 SEC CONSTRUCTION
+--NOOB INFERNAL KILLER 500 GOLD , 650 WOOD 30 SEC CONSTRUCTION; NICE INFERNAL KILLER 750 GOLD, 900 WOOD; GOOD INFERNAL KILLER 2000 GOLD, 1500 WOOD; CRAZY INFERNAL KILLER 4500 GOLD, 3000 WOOD; INSANE INFERNAL KILLER 6500 GOLD, 5000 WOOD
+--(ADVANCED) TREE BARRACK 100 GOLD , 200 WOOD 30 SEC CONSTRUCTION, TREE BARACK UPGRADED 100 GOLD, 200 WOOD 30 SEC CONSTRUCTION
+--(ADVANCED) UPGRADE CENTER 100 GOLD , 100 WOOD, 30 SEC CONSTRUCTION
+--(ADVANCED) TUNNEL ENTRANCE 200 GOLD , 250 WOOD 5 SEC CONSTRUCTION
+--========================UNITS==============================
+--WISP 60 GOLD, 10 SEC SPAWN
+--ADVANCED BUILDING 60 GOLD, 60 WOOD, 15 SEC SPAWN
+--======================5 SEC SPAWN==========================
+--TREE FIGHTER 20 GOLD, 40 WOOD
+--WATER 80 GOLD, 100 WOOD
+--TRAPPER 145 GOLD, 60 WOOD
+--SIEGE 75 GOLD, 100 WOOD
+--TREE GOLEM 450 GOLD, 300 WOOD
+--WATER LORD 100 GOLD, 150 WOOD
+--SIEGE UPGRADED 100, GOLD 150 WOOD
+--HERO (MAYBE NOT)
+--OWL (SCOUT) 250 GOLD, 400 WOOD
+--=====================INFERNAL UNITS=======================
+--BARON 5 MAX / INFERNAL 
+--========================ITEMS=============================
+--==================WEST EAST SHOP=========================
+--SUMMON GOLEM (1 CHARGE ONLY)
+--SUMMON MINI-INFERNAL (1 CHARGE ONLY)
+--HEALING POTION (1 CHARGE ONLY) (99 IN SHOP)
+--EUL (3 CHARGE ONLY) (2 IN SHOP)
+--CRYSTALL BALL 
+--INVUL POTION (1 CHARGE ONLY)
+--INVIS POTION (1 CHARGE ONLY)
+--MAGIC IMMUNE POTION (1 CHARGE ONLY)
+--=================NORTH SOUTH SHOP=========================
+--MAGIC IMMUNE ITEM
+--DRUM OF ENDURANE WITHOUT STATS
+--SHIELD??? 10% ATTACK + 8 ARMOR
+--GEM
+--BOOTS
+--MANA REGEN ITEM LVL 1 3.5 MANA REGEN
+--===================SECRET SHOP=========================
+--MANA REGEN ITEM LVL ULTIMATE 20 MANA REGEN
+--AXE OF DOOM 100% LIFESTEAL 20% AS, CRIT 10%
+--REFRESHER ORB
+--AS 200%, DAMAGE TAKEN 100% (USELESS IN MY OPINION)
+--NECROMICON LVL 4 (SUMMON 2 MELLE , 2 RANGE)

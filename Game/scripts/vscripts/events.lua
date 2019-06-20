@@ -155,8 +155,8 @@ end
 
 -- A tree was cut down by tango, quelling blade, etc
 function GameMode:OnTreeCut(keys)
-  DebugPrint('[BAREBONES] OnTreeCut')
-  DebugPrintTable(keys)
+  print('[BAREBONES] OnTreeCut')
+  PrintTable(keys)
 
   local treeX = keys.tree_x
   local treeY = keys.tree_y

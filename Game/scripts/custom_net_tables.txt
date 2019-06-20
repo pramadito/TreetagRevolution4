@@ -6,5 +6,9 @@
         "selection",
         "construction_size",
         "building_settings",
+        "buildings",
+		"items",
+		"abilities",
+		"resources"
     ]
 } 

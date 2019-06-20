@@ -265,27 +265,30 @@ function BuildingHelper:OnEntityKilled(keys)
 end
 
 function BuildingHelper:OnTreeCut(keys)
-    local treePos = Vector(keys.tree_x,keys.tree_y,0)
+    local treePos = Vector(keys.tree_x, keys.tree_y, 0)
     local tree -- Figure out which tree was cut
     for _,t in pairs(BuildingHelper.AllTrees) do
         local pos = t:GetAbsOrigin()
-        if pos.x == treePos.x and pos.y == treePos.y then
+        if pos.x == keys.tree_x and pos.y == keys.tree_y then
             tree = t
             break
         end
     end
 
     if not tree then
-        BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..treePos.x..","..treePos.y)
+        --BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..keys.tree_x..","..keys.tree_y)
+        BuildingHelper:print(keys)
         return
     elseif tree.chopped_dummy then
         UTIL_Remove(tree.chopped_dummy)
     end
 
     -- Create a dummy for clients to be able to detect trees standing and block their grid
+    -- print("Hello i just want to test this eheehehehehehe")
     tree.chopped_dummy = CreateUnitByName("npc_dota_units_base", treePos, false, nil, nil, 0)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
     BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
+    PrintTable(BuildingHelper.TreeDummies)
 
     -- Allow construction
     if not GridNav:IsBlocked(treePos) then
@@ -302,6 +305,7 @@ function BuildingHelper:OnTreeCut(keys)
 end
 
 function BuildingHelper:InitGNV()
+    local gnv_max_size = 32000
     local worldMin = Vector(GetWorldMinX(), GetWorldMinY(), 0)
     local worldMax = Vector(GetWorldMaxX(), GetWorldMaxY(), 0)
 
@@ -396,6 +400,29 @@ function BuildingHelper:InitGNV()
     local squareY = boundY2 - boundY1 + 1
 
     BuildingHelper:print("Free: "..unblockedCount.." Blocked: "..blockedCount)
+        -- Edited by SirWayNe 25.02.2018 - String cant he longer then 32667 due to Function from Valve SendToPlayer
+    local j = 0
+    local gnv_string_split = {}
+    local start = 0
+    local ending = 0
+    j = string.len(gnv_string)
+    j = math.ceil( j / gnv_max_size )
+
+    for i=1,j do
+        start = (i-1)*gnv_max_size+1
+        ending = (i)*gnv_max_size
+        gnv_string_split[i] = string.sub(gnv_string, start, ending) 
+        BuildingHelper:print("Index: "..i.." Length: "..string.len(gnv_string_split[i]).." Start: "..start.." End: "..ending )
+        BuildingHelper:print("First 50: " .. string.sub(gnv_string_split[i],0,50))
+    end
+    BuildingHelper.Encoded_Split = gnv_string_split
+
+    -- BuildingHelper:print("Index: 1 Length: "..string.len(BuildingHelper.Encoded_Split[1]))
+    -- BuildingHelper:print("Index: 1 Length: "..string.len(BuildingHelper.Encoded_Split[2]))
+    -- BuildingHelper:print("Index: 1 Length: "..string.len(BuildingHelper.Encoded_Split[3]))
+    -- BuildingHelper:print("First 50: " .. string.sub(BuildingHelper.Encoded_Split[1],0,50))
+
+    -- End Edit by SirWayNe
 
     -- Initially, the construction grid equals the terrain grid
     -- Clients will have full knowledge of the terrain grid
@@ -417,7 +444,21 @@ function BuildingHelper:SendGNV(args)
         local player = PlayerResource:GetPlayer(playerID)
         if player then
             BuildingHelper:print("Sending GNV to player "..playerID)
-            CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv=BuildingHelper.Encoded, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY })
+                        -- Edited by SirWayNe 25.02.2018 - String cant he longer then 32667 due to Function from Valve SendToPlayer
+            local t = {}
+            for k,v in pairs(BuildingHelper.Encoded_Split) do
+                print(k)
+                t["gnv_split"..k] = BuildingHelper.Encoded_Split[k]
+                t.splitCount = k
+            end
+            t.squareX = BuildingHelper.squareX
+            t.squareY = BuildingHelper.squareY
+            t.boundX = BuildingHelper.minBoundX
+            t.boundY = BuildingHelper.minBoundY
+            CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", t )
+            
+            -- CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv=BuildingHelper.Encoded, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY })
+            -- end Edit by SirWayNe
         end
     end
 end

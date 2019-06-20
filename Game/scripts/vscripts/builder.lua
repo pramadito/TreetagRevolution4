@@ -4,13 +4,14 @@ function Build( event )
     local ability = event.ability
     local ability_name = ability:GetAbilityName()
     local building_name = ability:GetAbilityKeyValues()['UnitName']
-    local gold_cost = ability:GetGoldCost(1) 
+    local gold_cost = ability:GetSpecialValueFor("gold_cost")
+    local lumber_cost = ability:GetSpecialValueFor("lumber_cost")
     local hero = caster:IsRealHero() and caster or caster:GetOwner()
     local playerID = hero:GetPlayerID()
 
     -- If the ability has an AbilityGoldCost, it's impossible to not have enough gold the first time it's cast
     -- Always refund the gold here, as the building hasn't been placed yet
-    hero:ModifyGold(gold_cost, false, 0)
+    -- hero:ModifyGold(gold_cost, false, 0)
 
     -- Makes a building dummy and starts panorama ghosting
     BuildingHelper:AddBuilding(event)
@@ -31,6 +32,10 @@ function Build( event )
             SendErrorMessage(playerID, "#error_not_enough_gold")
             return false
         end
+        if PlayerResource:GetLumber(playerID) < lumber_cost then
+            SendErrorMessage(playerID, "#error_not_enough_lumber")
+            return false
+        end
 
         return true
     end)
@@ -38,8 +43,8 @@ function Build( event )
     -- Position for a building was confirmed and valid
     event:OnBuildingPosChosen(function(vPos)
         -- Spend resources
-        hero:ModifyGold(-gold_cost, false, 0)
-
+        PlayerResource:ModifyGold(hero,-gold_cost)
+        PlayerResource:ModifyLumber(hero,-lumber_cost)
         -- Play a sound
         EmitSoundOnClient("DOTA_Item.ObserverWard.Activate", PlayerResource:GetPlayer(playerID))
     end)

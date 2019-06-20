@@ -2,23 +2,55 @@
 // Dota Abilities Override File
 "DOTAAbilities"
 {
-  "destroy_tree_treant" //this is suck
+    "ability_building"
+  {
+    "BaseClass"                 "ability_datadriven"
+    "MaxLevel"            "1"
+  
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+  
+    "Modifiers"
+    {
+      "modifier_building"
+      {
+        "Passive"     "1"
+        "IsHidden"      "1"
+        "Attributes"    "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT" 
+        "States"
+        {
+          "MODIFIER_STATE_ROOTED"   "MODIFIER_STATE_VALUE_ENABLED" // Prevents moving
+          "MODIFIER_STATE_SPECIALLY_DENIABLE" "MODIFIER_STATE_VALUE_ENABLED" // Allows attacking own buildings
+          "MODIFIER_STATE_LOW_ATTACK_PRIORITY" "MODIFIER_STATE_VALUE_ENABLED" // Makes it a secondary target when A-clicking ground
+          "MODIFIER_STATE_NO_UNIT_COLLISION"  "MODIFIER_STATE_VALUE_ENABLED" // GridNav is blocked
+        }
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"  "0.1"
+        }
+      }
+    }   
+
+  //=================================INFERNAL SKILLS====================================
+  }
+  "destroy_tree_infernal" //this is suck
   {
     // General  
     // ----------------------------------------------------------------------------------------
     "BaseClass"              "ability_datadriven"
     "AbilityTextureName"     "spellicon"
-    "AbilityUnitTargetType"  "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-    "AbilityType"            "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_CUSTOM"
     "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
     "AnimationPlaybackRate"  "1"
     "AnimationIgnoresModelScale" "1"
 
     // Stats
     //----------------------------------------------------------------------------------------
+    "MaxLevel"                "1"
     "AbilityManaCost"         "0"
     "AbilityCooldown"         "1"
-    "AbilityCastRange"        "150"
+    "AbilityCastRange"        "75"
 
     "OnSpellStart"
     {
@@ -29,5 +61,120 @@
         }
     }
   }
+  "destroy_tree_aoe_infernal"
+  {
+
+  }
+  "shockwave_infernal"
+  {
+
+  }
+  "immolation_infernal"
+  {
+
+  }
+  "damage_aura_infernal"
+  {
+
+  }
+  "tornado_infernal"
+  {
+
+  }
+
+
+  //==============================ENT BUILDINGS=============================
+  "build_gold_mine_1"
+  {
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_gold_mine"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "gold_mine_1"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "0"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "0"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
+  }
+  "build_tree_of_life"
+  {
+
+  }
+  "build_tree_aura"
+  {
+
+  }
+  "build_noob_infernal_killer"
+  {
+
+  }
+  "build_basic_tree"
+  {
+
+  }
+  "build_armored_tree"
+  {
+
+  }
+  "build_sentry_tower"
+  {
+
+  }
+  "build_invisible_tree"
+  {
+
+  }
+//============================BUILDINGS ABILITIES===================================
+  "gold_mine_ability"
+  {
+    "BaseClass"           "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityTextureName"        "alchemist_goblins_greed"
+    "MaxLevel"            "1"
+
+    "ConstructionCompleteModifiers"
+    {
+      "1"             "modifier_gold_mine"
+    } 
+    "Modifiers" {
+      "modifier_gold_mine" {
+        "OnCreated"{
+          "RunScript"{
+            "ScriptFile"      "custom_abilities.lua"
+            "Function"        "GoldMineCreate"
+          }
+        }
+        "OnDestroy"{
+          "RunScript"{
+            "ScriptFile"      "custom_abilities.lua"
+            "Function"        "GoldMineDestroy"
+          }
+        }
+      }
+    }
+  }
+
 }
 

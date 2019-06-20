@@ -1,22 +1,60 @@
 "DOTAAbilities"
 {
-  	"item_treant_hand"
+	//======================================ENT ABILITIES (AS ITEM)=============================
+	//Regrow Tree
+	"item_treant_hand_1"
 	{
-		// General
-		//-------------------------------------------------------------------------------------
 		"ID"						    "3000"
 		"BaseClass"					    "item_datadriven"
-		"AbilityTextureName"			"item_treant_hand"
+		"AbilityTextureName"			"item_treant_hand_1"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+
+		"AbilityCastRange"			"500"
+		"AbilityCooldown"			"20"
+		"AbilityManaCost"			"40"
+		"AoERadius"				 	"%affect_aoe"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"affect_aoe"		"100"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"		"abilities/custom_abilities.lua"
+				"Function"			"RegrowTreeAoE"
+				"Radius"			"%affect_aoe"
+				"Target"			"POINT"
+			}
+		}
+	}
+	//Destroy Tree
+  	"item_treant_hand_2"
+	{
+		// General
+		//-----------------------------------------------------------------------
+		"ID"						    "3001"
+		"BaseClass"					    "item_datadriven"
+		"AbilityTextureName"			"item_treant_hand_2"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
 
+		// Stats
+		//-----------------------------------------------------------------------
 		"AbilityCastRange"				"64"
 		"AbilityCastPoint"				"1.0"
 		"AbilityCooldown"				"0.0"
 		
 		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
+		//-----------------------------------------------------------------------
 		"ItemDroppable" 				"0"
 		"ItemPurchasable" 				"0"
 		"ItemSellable"					"0"
@@ -25,13 +63,121 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"abilities/item_treant_hand.lua"
+				"ScriptFile"	"abilities/custom_abilities.lua"
 				"Function"		"DestroyTree"
 			}
 		}
 	}
 	"item_treant_blink"
 	{
-	
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"3003"														"BaseClass"					    "item_blink"
+		"AbilityTextureName"			"item_blink"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"15.0"
+		"AbilityManaCost"				"0"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"blink_range"			"1200"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"blink_damage_cooldown"	"3.0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"blink_range_clamp"		"1200"
+			}
+		}
+	}
+	item_treant_destroy_aoe
+	{
+		
+	}
+	item_treant_invis
+	{
+
+	}
+	item_treant_regrow
+	{
+
+	}
+	item_infernal_blink
+	{
+
+	}
+	item_infernal_ward
+	{
+
+	}
+	item_infernal_altar
+	{
+
+	}
+	item_infernal_market
+	{
+
+	}
+	item_infernal_mana_regen_1
+	{
+
+	}
+	item_infernal_mana_regen_2
+	{
+
+	}
+	item_infernal_crystal_of_reveal
+	{
+
+	}
+	item_infernal_boots_1
+	{
+
+	}
+	item_infernal_boots_2
+	{
+
+	}
+	item_infernal_damage_1
+	{
+
+	}
+	item_infernal_damage_2
+	{
+
+	}
+	item_infernal_summon_mini_infernal
+	{
+
+	}
+	item_infernal_armor_1
+	{
+
+	}
+	item_infernal_armor_2
+	{
+
+	}
+	item_infernal_evasion
+	{
+
+	}
+	item_infernal_
+	{
+
 	}
 }
