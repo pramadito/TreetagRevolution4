@@ -11,9 +11,6 @@ function DestroyTree(event)
 	target:CutDown(caster_team)
 end
 
-function RegrowTree()
-	--body
-end
 
 function ItemBlink()
     --ProjectileManager:ProjectileDodge(self.caster)  --Disjoints disjointable incoming projectiles.
@@ -59,15 +56,8 @@ function DestroyTreeAoE(event)
 	--ParticleManager:CreateParticle(string particleName, int particleAttach, keys.caster)
 end
 
-function RegrowTreeAoE(event)
-	local target_point = event.target_points[1]
-	local radius = event.Radius
-	
-	local trees = GetDestroyedTreesAroundPoint(target_point, radius)
-	for i, tree in ipairs(trees) do
-		tree:GrowBack()
-		RemoveDestroyedTree(tree)
-	end
+function RegrowTreeAoE_Small(event)
+	BuildingHelper:RegrowTreesAOE(event)
 end
 
 --========== NEED TIMER ==================

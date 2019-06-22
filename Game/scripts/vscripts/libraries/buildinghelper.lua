@@ -241,6 +241,12 @@ function BuildingHelper:OnEntityKilled(keys)
     local killed = EntIndexToHScript(keys.entindex_killed)
     local unitTable = killed:GetKeyValue()
     local gridTable = unitTable and unitTable["Grid"]
+    local pos = killed:GetAbsOrigin()
+    local x = pos.x
+    local y = pos.y
+    print("[BH] Entity killed")
+    print("[BH] pos x : "..x.." pos y : "..y)
+    
 
     if IsBuilder(killed) then
         BuildingHelper:ClearQueue(killed)
@@ -262,10 +268,35 @@ function BuildingHelper:OnEntityKilled(keys)
             end
         end
     end
+
+    local treePos = Vector(x, y, 0)
+    local tree -- Figure out which tree was cut
+    for _,t in pairs(BuildingHelper.AllTrees) do
+        local pos = t:GetAbsOrigin()
+        if pos.x == x and pos.y == y then
+            tree = t
+            break
+        end
+    end
+
+    if not tree then
+        BuildingHelper:print("ERROR: OnEntityKilled couldn't find a tree for pos "..x..","..y)
+        return
+    elseif tree.chopped_dummy then
+        BuildingHelper:print("[BH] Tree dummy removed")
+        UTIL_Remove(tree.chopped_dummy)
+    end
+
+    tree.chopped_dummy = CreateUnitByName("npc_dota_units_base", treePos, false, nil, nil, 0)
+    tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
+    tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
+    BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
+
 end
 
 function BuildingHelper:OnTreeCut(keys)
     local treePos = Vector(keys.tree_x, keys.tree_y, 0)
+    print("This is Tree Pos", treePos)
     local tree -- Figure out which tree was cut
     for _,t in pairs(BuildingHelper.AllTrees) do
         local pos = t:GetAbsOrigin()
@@ -276,18 +307,19 @@ function BuildingHelper:OnTreeCut(keys)
     end
 
     if not tree then
-        --BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..keys.tree_x..","..keys.tree_y)
-        BuildingHelper:print(keys)
+        BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..keys.tree_x..","..keys.tree_y)
+        --BuildingHelper:print(keys)
         return
     elseif tree.chopped_dummy then
         UTIL_Remove(tree.chopped_dummy)
     end
 
     -- Create a dummy for clients to be able to detect trees standing and block their grid
-    -- print("Hello i just want to test this eheehehehehehe")
     tree.chopped_dummy = CreateUnitByName("npc_dota_units_base", treePos, false, nil, nil, 0)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
+    tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
     BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
+    print("This is all the dummies : ")
     PrintTable(BuildingHelper.TreeDummies)
 
     -- Allow construction
@@ -296,12 +328,29 @@ function BuildingHelper:OnTreeCut(keys)
     end
 
     -- Remove the dummy, allowing the tree to regrow
-    Timers:CreateTimer(BuildingHelper.TreeRegrowTime, function()
-        if IsValidEntity(tree.chopped_dummy) then
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
+    -- Timers:CreateTimer(BuildingHelper.TreeRegrowTime, function()
+    --     if IsValidEntity(tree.chopped_dummy) then
+    --         BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
+    --         UTIL_Remove(tree.chopped_dummy)
+    --     end
+    -- end)
+end
+
+function BuildingHelper:RegrowTreesAOE(keys)
+    local caster = keys.caster
+    local target_point = keys.target_points[1]
+    local point_x = target_point.x
+    local point_y = target_point.y
+    local radius = keys.Radius
+
+    for _,tree in pairs(BuildingHelper.AllTrees) do
+        local pos = tree:GetAbsOrigin()
+        local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
+            if (inside <= (radius^2)) then
+               BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
+               UTIL_Remove(tree.chopped_dummy)
         end
-    end)
+    end
 end
 
 function BuildingHelper:InitGNV()
@@ -1051,9 +1100,10 @@ function BuildingHelper:RemoveBuilding(building, bSkipEffects)
         end
     end
 
-    if building.prop then
-        UTIL_Remove(building.prop)
-    end
+    -- Remove prop maybe accidentally cause tree to grow?
+    -- if building.prop then
+    --     UTIL_Remove(building.prop)
+    -- end
 
     BuildingHelper:FreeGridSquares(BuildingHelper:GetConstructionSize(building), building:GetAbsOrigin())
 

@@ -29,7 +29,7 @@
 			"RunScript"
 			{
 				"ScriptFile"		"abilities/custom_abilities.lua"
-				"Function"			"RegrowTreeAoE"
+				"Function"			"RegrowTreeAoE_Small"
 				"Radius"			"%affect_aoe"
 				"Target"			"POINT"
 			}
