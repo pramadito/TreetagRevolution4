@@ -1,0 +1,26 @@
+<root>
+
+	<styles>
+		<include src="file://{resources}/styles/resources.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/resources.js" />
+	</scripts>
+
+	<Panel class="Resource">
+		<Panel class="Gold">
+			<Label id="GoldText" class="Texts" text="" html="true"/>
+			<Image id="GoldIcon" src="file://{resources}/images/custom_game/gold.png" />
+		</Panel>
+		<Panel class="Lumber">
+			<Label id="LumberText" class="Texts" text="" html="true"/>
+			<Image id="LumberIcon" src="file://{resources}/images/custom_game/wood.png" />
+		</Panel>
+		<Panel class="Food">
+			<Label id="FoodText" class="Texts" text="" html="true"/>
+			<Image id="FoodIcon" src="file://{resources}/images/custom_game/food.png" />
+		</Panel>
+	</Panel>
+
+</root>

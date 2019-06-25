@@ -1,0 +1,75 @@
+.Resource
+{
+	position: -240px 0px 0px;
+	width: 600px;
+	height: 50px;
+
+	horizontal-align: right;
+	vertical-align: top;
+
+/*	background-color: blue;*/
+}
+
+.Texts
+{
+    font-family: Radiance;
+  	font-weight: bold;
+    text-align: center;
+    /* text-shadow: 0px 0px 3px 3.0 #000000; */
+	font-family: Radiance;
+	margin-left:28px;
+	color: white;
+}
+
+.Gold
+{
+	position: -500px 15px 0px;
+	width: 100px;
+	height: 20px;
+
+	horizontal-align: right;
+	vertical-align: top;
+
+/*	background-color: red;*/
+}
+
+#GoldIcon {	
+	width:26px; 
+	height:26px; 
+	margin-top: -5px;
+}
+
+.Lumber
+{
+	position: -350px 15px 0px;
+	width: 100px;
+	height: 20px;
+
+	horizontal-align: right;
+	vertical-align: top;
+
+/*	background-color: red;*/
+}
+
+#LumberIcon {	
+	width:26px; 
+	height:26px; 
+	margin-top: -5px;
+}
+.Food
+{
+	position: -200px 15px 0px;
+	width: 100px;
+	height: 20px;
+
+	horizontal-align: right;
+	vertical-align: top;
+
+/*	background-color: red;*/
+}
+
+#FoodIcon {	
+	width:26px; 
+	height:26px; 
+	margin-top: -5px;
+}
