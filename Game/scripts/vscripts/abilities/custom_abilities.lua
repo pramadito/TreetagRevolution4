@@ -7,57 +7,23 @@ function DestroyTree(event)
 	local caster = event.caster
 	local caster_team = caster:GetTeam()
 	local target = event.target
-	
+
+	if not IsServer() then return end
 	target:CutDown(caster_team)
 end
 
-
-function ItemBlink()
-    --ProjectileManager:ProjectileDodge(self.caster)  --Disjoints disjointable incoming projectiles.
-    
-    ParticleManager:CreateParticle("particles/items_fx/blink_dagger_start.vpcf", PATTACH_ABSORIGIN, self:GetCaster())
-    keys.caster:EmitSound("DOTA_Item.BlinkDagger.Activate")
-    
-    -- unit identifier
-	local caster = self:GetCaster()
-	local point = self:GetCursorPosition()
-	local origin = caster:GetOrigin()
-
-	-- load data
-	local max_range = self:GetSpecialValueFor("blink_range")
-
-	-- determine target position
-	local direction = (point - origin)
-	if direction:Length2D() > max_range then
-		direction = direction:Normalized() * max_range
-	end
-
-	-- teleport
-	FindClearSpaceForUnit( caster, origin + direction, true )
-    
-    ParticleManager:CreateParticle("particles/items_fx/blink_dagger_end.vpcf", PATTACH_ABSORIGIN, self:GetCaster())
-end
-
-function DestroyTree_WhileWalking(event)
-	-- body
-end
-
-function DestroyTreeAoE(event)
+function DestroyTreesAoE(event)
 	local caster = event.caster
 	local caster_team = caster:GetTeam()
 	local target_point = event.target_points[1]
 	local radius = event.Radius
 
-	--ParticleManager:CreateParticle(string particleName, int particleAttach, keys.caster)
-	local trees = GridNav:GetAllTreesAroundPoint(target_point, radius, false)
-	for i, tree in ipairs(trees) do
-		tree:CutDown(caster_team)
-	end
-	--ParticleManager:CreateParticle(string particleName, int particleAttach, keys.caster)
+	GridNav:DestroyTreesAroundPoint(target_point, radius, false)
 end
 
 function RegrowTreeAoE_Small(event)
 	BuildingHelper:RegrowTreesAOE(event)
+	
 end
 
 --========== NEED TIMER ==================
@@ -139,6 +105,10 @@ end
 
 function Infernal_Immolation()
 	--body
+end
+
+function DestroyTree_WhileWalking(event)
+	-- body
 end
 
 

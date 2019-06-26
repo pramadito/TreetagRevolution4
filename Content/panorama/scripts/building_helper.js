@@ -226,7 +226,9 @@ function StartBuildingHelper( params )
                     // Block the grid if the tree isn't chopped
                     if (cutTrees[treePos] === undefined)
                         // $.Msg("[BH.JS] Block Grid "+ treePos)
-                        BlockGridSquares(treePos, 2, "TREE")                    
+                        BlockGridSquares(treePos, 2, "TREE")
+                    else 
+                        cutTrees[treePos] = undefined                    
                 }
             }
         }

@@ -41,11 +41,25 @@ end
 function Activate()
   GameRules.GameMode = GameMode()
   GameRules.GameMode:InitGameMode()
-  GameRules.max_food = 100
+  GameRules.maxFood = 100
   GameRules.gold = {}
   GameRules.lumber = {}
   GameRules.goldGained = {}
   GameRules.lumberGained = {}
   GameRules.goldGiven = {}
   GameRules.lumberGiven = {}
+  GameRules.InfernalWin = false
+  GameRules.heroes = {}
+  GameRules.shops = {}
+  GameRules.players = {}
+  GameRules.firstHero = true
+  GameRules.stunHeroes = true
+  GameRules.InfernalSpawned = false
+  GameRules.dcedChoosers = {}
+  --GameRules.InfernalTimer = 30
+  --GameRules.shops = Entities:FindAllByClassname("trigger_shop")
+  --GameRules.playersColors = {{0, 102, 255},{0, 204, 255},{153, 0, 204},{225,0,255},{255, 255, 0},{255, 153, 51},{51, 204, 51},{0, 105, 0},{128, 0, 0},{176, 0, 0},{60,20,74}}
+  GameRules.startTime = 0
+  GameRules.colorCounter = 1
+  GameRules.playerCount = 0
 end

@@ -125,37 +125,7 @@ end
 
 -- This requires that buildinghelper is required before the usage of these functions
 function BuildingHelper:HookFunctions()
-    local oldSetTreeRegrowTime = GameRules.SetTreeRegrowTime
-    BuildingHelper.TreeRegrowTime = 300
-    GameRules.SetTreeRegrowTime = function(gameRules, time)
-        BuildingHelper.TreeRegrowTime = time
-        oldSetTreeRegrowTime(gameRules, time)
-    end
-
-    local oldRegrowAllTrees = GridNav.RegrowAllTrees
-    GridNav.RegrowAllTrees = function(gridNav)
-        for _,dummy in pairs(BuildingHelper.TreeDummies) do
-            UTIL_Remove(dummy)
-        end
-        BuildingHelper.TreeDummies = {}
-        oldRegrowAllTrees(gridNav)
-    end
-
-    local oldCutDownRegrowAfter = CDOTA_MapTree.CutDownRegrowAfter
-    CDOTA_MapTree.CutDownRegrowAfter = function(tree, time, team)
-        oldCutDownRegrowAfter(tree, time, team)
-        Timers:CreateTimer(time, function()
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
-        end)
-    end
-
-    local oldGrowBack = CDOTA_MapTree.GrowBack
-    CDOTA_MapTree.GrowBack = function(tree)
-        BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-        UTIL_Remove(tree.chopped_dummy)
-        oldGrowBack(tree)
-    end
+    --idontneedthisithinkhehe
 end
 
 function BuildingHelper:LoadSettings()
@@ -343,12 +313,14 @@ function BuildingHelper:RegrowTreesAOE(keys)
     local point_y = target_point.y
     local radius = keys.Radius
 
+
     for _,tree in pairs(BuildingHelper.AllTrees) do
         local pos = tree:GetAbsOrigin()
         local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
-            if (inside <= (radius^2)) then
-               BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-               UTIL_Remove(tree.chopped_dummy)
+        if (inside <= (radius^2)) then
+            print("test if this working or not")
+            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
+            UTIL_Remove(tree.chopped_dummy)
         end
     end
 end

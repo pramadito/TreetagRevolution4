@@ -5,6 +5,7 @@
     "override_hero"     "npc_dota_hero_wisp"
     "Model"             "models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl"
     "SoundSet"          "0" 
+    "DisableWearables"         "1"
     "UnitLabel"                 "builder"
     "AbilityLayout"             "1"
     "Ability1"          "antimage_blink" 
