@@ -266,7 +266,7 @@ end
 
 function BuildingHelper:OnTreeCut(keys)
     local treePos = Vector(keys.tree_x, keys.tree_y, 0)
-    print("This is Tree Pos", treePos)
+    -- print("This is Tree Pos", treePos)
     local tree -- Figure out which tree was cut
     for _,t in pairs(BuildingHelper.AllTrees) do
         local pos = t:GetAbsOrigin()
@@ -289,8 +289,8 @@ function BuildingHelper:OnTreeCut(keys)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
     BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
-    print("This is all the dummies : ")
-    PrintTable(BuildingHelper.TreeDummies)
+    -- print("This is all the dummies : ")
+    -- PrintTable(BuildingHelper.TreeDummies)
 
     -- Allow construction
     if not GridNav:IsBlocked(treePos) then
@@ -308,19 +308,28 @@ end
 
 function BuildingHelper:RegrowTreesAOE(keys)
     local caster = keys.caster
+    local team = caster:GetTeam()
     local target_point = keys.target_points[1]
     local point_x = target_point.x
     local point_y = target_point.y
     local radius = keys.Radius
+    local no_entities = Entities:FindAllInSphere(target_point, 200)
+    -- local event = { state = "active", size = size, scale = fMaxScale, builderIndex = builder:GetEntityIndex() }
+    -- CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
 
+    local units = FindUnitsInRadius(team, target_point, nil, 335, DOTA_UNIT_TARGET_TEAM_BOTH ,  DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
+    local playerID = caster:GetMainControllingPlayer()
 
-    for _,tree in pairs(BuildingHelper.AllTrees) do
-        local pos = tree:GetAbsOrigin()
-        local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
-        if (inside <= (radius^2)) then
-            print("test if this working or not")
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
+    if #units > 0 then
+        SendErrorMessage(playerID, "#There is unit nearby")
+    else
+        for _,tree in pairs(BuildingHelper.AllTrees) do
+            local pos = tree:GetAbsOrigin()
+             local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
+            if (inside <= (radius^2)) then
+                BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
+                UTIL_Remove(tree.chopped_dummy)
+            end
         end
     end
 end

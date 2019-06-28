@@ -118,6 +118,18 @@
       }
     }
   }
+  "build_resource_storage_1"
+  {
+
+  }
+  "upgrage_to_resource_storage_2"
+  {
+
+  }
+  "upgrade_to_resource_storage_3"
+  {
+  
+  }
   "build_tree_of_life"
   {
 

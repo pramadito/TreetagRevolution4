@@ -225,10 +225,14 @@ function StartBuildingHelper( params )
                     var treePos = Entities.GetAbsOrigin(tree_entities[i])
                     // Block the grid if the tree isn't chopped
                     if (cutTrees[treePos] === undefined)
-                        // $.Msg("[BH.JS] Block Grid "+ treePos)
+                        {
                         BlockGridSquares(treePos, 2, "TREE")
-                    else 
-                        cutTrees[treePos] = undefined                    
+                        }
+                    else if (!HasModifier(cutTrees[treePos],"modifier_tree_cut"))
+                        {
+                        cutTrees[treePos] = undefined 
+                        BlockGridSquares(treePos, 2, "TREE")                   
+                        }
                 }
             }
         }
@@ -524,7 +528,7 @@ function RequestGNV () {
 
     GameEvents.Subscribe( "building_helper_enable", StartBuildingHelper);
     GameEvents.Subscribe( "building_helper_end", EndBuildingHelper);
-
+    
     GameEvents.Subscribe( "gnv_register", RegisterGNV);
 })();
 

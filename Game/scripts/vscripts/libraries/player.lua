@@ -1,3 +1,7 @@
+--THIS CODE IS CREATED BY sSAM (or his team) THE CREATOR OF TROLL AND ELVES 2 NOT ME
+--THIS CODE IS COPIED BY ME TO IMPLEMENT CUSTOM PLAYER RESOURCE
+
+
 Player = Player or {}
 
 require('libraries/team')
