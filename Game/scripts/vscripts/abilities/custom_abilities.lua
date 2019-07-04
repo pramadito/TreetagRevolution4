@@ -26,38 +26,33 @@ function RegrowTreeAoE_Small(event)
 	
 end
 
---========== NEED TIMER ==================
-function GoldMineCreate(keys)
-	local caster = keys.caster
-	local hero = caster:GetOwner()
-	local amountPerSecond = GetUnitKV(caster:GetUnitName()).GoldAmount * GameRules.MapSpeed
-	local maxGold = GetUnitKV(caster:GetUnitName(),"MaxGold") or 2000000
-	hero.goldPerSecond = hero.goldPerSecond + amountPerSecond
-	local secondsToLive = maxGold/amountPerSecond;
-	Timers:CreateTimer(secondsToLive, 
-		function()
-			caster:ForceKill(false)
-		end)
-	local dataTable = { entityIndex = caster:GetEntityIndex(), amount = amountPerSecond, interval = 1 }
-	local player = hero:GetPlayerOwner()
-	if player then
-		CustomGameEventManager:Send_ServerToPlayer(player, "gold_gain_start", dataTable)
-	end
+function ProduceLumberandGoldCreate(event)
+	local caster = event.caster
+	Timers:CreateTimer({
+    	endTime = 3, -- when this timer should first execute, you can omit this if you want it to run first on the next frame
+    	callback = function()
+		local hero = caster:GetOwner()
+		if not hero then
+			return
+		end
+		local goldamountperfivesecond = GetUnitKV(caster:GetUnitName()).GoldAmount
+		local lumberamountperfivesecond = GetUnitKV(caster:GetUnitName()).LumberAmount
+		hero.goldperfivesecond = hero.goldperfivesecond + goldamountperfivesecond
+		hero.lumberperfivesecond = hero.lumberperfivesecond + lumberamountperfivesecond
+    end
+  	})
 end
 
-function GoldMineDestroy(keys)
-	local caster = keys.caster
+function ProduceLumberandGoldDestroy(event)
+	local caster = event.caster
 	local hero = caster:GetOwner()
-	local amountPerSecond = GetUnitKV(caster:GetUnitName()).GoldAmount * GameRules.MapSpeed
-	hero.goldPerSecond = hero.goldPerSecond - amountPerSecond
-	local dataTable = { entityIndex = caster:GetEntityIndex() }
-	local player = hero:GetPlayerOwner()
-	if player then
-		CustomGameEventManager:Send_ServerToPlayer(player, "gold_gain_stop", dataTable)
-	end
+	local goldamountperfivesecond = GetUnitKV(caster:GetUnitName()).GoldAmount
+	local lumberamountperfivesecond = GetUnitKV(caster:GetUnitName()).LumberAmount
+	hero.goldperfivesecond = hero.goldperfivesecond - goldamountperfivesecond
+	hero.lumberperfivesecond = hero.lumberperfivesecond - lumberamountperfivesecond
 end
 
-function GainLumber()
+function WispGainLumber()
 	--body
 end
 --=========================================

@@ -1,12 +1,12 @@
   // Dota Units File
 "DOTAUnits"
 {
-  "Version" "1"
+    "Version" "1"
   
-  "npc_dummy_unit"
-  {
+    "npc_dummy_unit"
+    {
+
     // General
-    //
     "BaseClass"         "npc_dota_base_additive"  // Class of entity of link to.
     "Model"           "models/development/invisiblebox.vmdl"  // Model.
     "SoundSet"          "Creep_Good_Range"          // Name of sound set.
@@ -92,81 +92,24 @@
     // Bots
     //----------------------------------------------------------------
     "AttackDesire"        "1.5"   // How much bots want to attack them vs other non-hero things
-  }
-    //=================================================================================
-    // Building: Gold Mine 1
-    //================================================================================= 
-    "gold_mine_1"
-    {
-        // Visual
-        //-----------------------------
-        "BaseClass"                 "npc_dota_creature"
-        "Model"                     "models/props_gameplay/gold_bag.vmdl"
-        "precache"{
-            "model"                     "models/props_gameplay/gold_bag.vmdl"
-        }
-        "ModelScale"                "2.5"
-        "ModelRotation"             "0"
-        "PlayerCanControl"          "1"
-        "Scale"                     "1"
-        "MaxGold"                   "2000000"
-        
-        // Stats
-        //----------------------------- 
-        "Level"                     "1"
-        "BuildTime"                 "3"
-        
-        // Abilities
-        //----------------------------------------------------------------
-        "AbilityLayout"             "1"
-        "Ability1"                  "gold_mine_ability"
-        "Ability2"                  ""
-        "Ability3"                  ""
-        "Ability4"                  ""
-        "Ability10"                 ""
-        
-        "GoldAmount"                "1"
-        
-        // General
-        //-----------------------------
-        
-        "ArmorPhysical"             "5"
-        "StatusHealth"              "50"
-        "StatusHealthRegen"         "0"
-        "StatusMana"                "0"
-        "StatusManaRegen"           "0"
-        "MagicalResistance"         "0"
-        
-        "ConstructionSize"          "2"
-        "BlockPathingSize"          "2"
-        "CollisionSize"             "64"
-        
-        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
-        "TeamName"                  "DOTA_TEAM_NEUTRALS"
-        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
-        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
-        "VisionDaytimeRange"        "1800"
-        "VisionNighttimeRange"      "900"  
-        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
-        "ProjectileCollisionSize"   "100"
-        "RingRadius"                "100"
-        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
-        "MovementSpeed"              "0"
     }
+
 
     "resource_storage_1"
     {
             // Visual
         //-----------------------------
         "BaseClass"                 "npc_dota_creature"
-        "Model"                     "models/props_gameplay/gold_bag.vmdl"
+        "Model"                     "models\props_structures\radiant_statue002.vmdl"
         "precache"{
-            "model"                     "models/props_gameplay/gold_bag.vmdl"
+            "model"                     "models\props_structures\radiant_statue002.vmdl"
         }
-        "ModelScale"                "2.5"
+        "ModelScale"                "0.5"
         "ModelRotation"             "0"
         "PlayerCanControl"          "1"
         "Scale"                     "1"
+        "GoldAmount"                "2"
+        "LumberAmount"              "4"
         
         // Stats
         //----------------------------- 
@@ -182,13 +125,12 @@
         "Ability4"                  ""
         "Ability10"                 ""
         
-        "GoldAmount"                "1"
         
         // General
         //-----------------------------
         
         "ArmorPhysical"             "5"
-        "StatusHealth"              "50"
+        "StatusHealth"              "100"
         "StatusHealthRegen"         "0"
         "StatusMana"                "0"
         "StatusManaRegen"           "0"
@@ -210,12 +152,408 @@
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
         "MovementSpeed"              "0"
     }
+
     "resource_storage_2"
     {
-
+        // "GoldAmount"                "8"
+        // "LumberAmount"              "6"
     }
+
     "resource_storage_3"
     {
+        // "GoldAmount"                "10"
+        // "LumberAmount"              "10"
+    }
 
+    "tree_of_life"
+    {
+        // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models/props_structures/radiant_ancient001.vmdl"
+        "precache"{
+            "model"                     "models/props_structures/radiant_ancient001.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  "summon_wisp"
+        "Ability2"                  "summon_advanced_builder"
+        "Ability3"                  "summon_tree_priest"
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "3"
+        "BlockPathingSize"          "3"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
+    }
+    "tree_aura"
+    {
+                // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models\props_structures\radiant_statue001.vmdl"
+        "precache"{
+            "model"                     "models\props_structures\radiant_statue001.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  "healing_water"
+        "Ability2"                  "mana_regeneration_aura"
+        "Ability3"                  "health_regeneration_aura"
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "2"
+        "BlockPathingSize"          "2"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
+    }
+
+    "noob_infernal_killer"
+    {
+                // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models\props_structures\radiant_statue001.vmdl"
+        "precache"{
+            "model"                     "models\props_structures\radiant_statue001.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  ""
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "2"
+        "BlockPathingSize"          "2"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
+    }
+
+    "basic_tree"
+    {
+                // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models/heroes/treant_protector/treant_protector.vmdl"
+        "precache"{
+            "model"                     "models/heroes/treant_protector/treant_protector.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  ""
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "2"
+        "BlockPathingSize"          "2"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
+    }
+
+    "armored_tree"
+    {
+                // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models/heroes/treant_protector/treant_protector.vmdl"
+        "precache"{
+            "model"                     "models/heroes/treant_protector/treant_protector.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  ""
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "2"
+        "BlockPathingSize"          "2"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
+    }
+
+    "sentry_tower"
+    {
+                // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models/props_structures/wooden_sentry_tower001.vmdl"
+        "precache"{
+            "model"                     "models/props_structures/wooden_sentry_tower001.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  "unobstructed_vision"
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "2"
+        "BlockPathingSize"          "2"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
+    }
+
+    "invisible_tree"
+    {
+                // Visual
+        //-----------------------------
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models/heroes/treant_protector/treant_protector.vmdl"
+        "precache"{
+            "model"                     "models/heroes/treant_protector/treant_protector.vmdl"
+        }
+        "ModelScale"                "0.5"
+        "ModelRotation"             "0"
+        "PlayerCanControl"          "1"
+        "Scale"                     "1"
+        
+        // Stats
+        //----------------------------- 
+        "Level"                     "1"
+        "BuildTime"                 "3"
+        
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"             "1"
+        "Ability1"                  ""
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+        "Ability10"                 ""
+        
+        
+        // General
+        //-----------------------------
+        
+        "ArmorPhysical"             "5"
+        "StatusHealth"              "100"
+        "StatusHealthRegen"         "0"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        "MagicalResistance"         "0"
+        
+        "ConstructionSize"          "2"
+        "BlockPathingSize"          "2"
+        "CollisionSize"             "64"
+        
+        "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+        "VisionDaytimeRange"        "1800"
+        "VisionNighttimeRange"      "900"  
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "ProjectileCollisionSize"   "100"
+        "RingRadius"                "100"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"              "0"
     }
 }

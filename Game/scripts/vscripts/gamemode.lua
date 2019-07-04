@@ -90,22 +90,25 @@ function InitializeHero(hero)
   hero.food = 0
   hero.buildings = {} -- This keeps the name and quantity of each building
   hero.units = {}
+  hero.goldperfivesecond = 2
+  hero.lumberperfivesecond = 2
   hero.disabledBuildings = {}
-  PlayerResource:ModifyFood(hero, 0)
-  PlayerResource:SetGold(hero,0)
-  PlayerResource:SetLumber(hero,0) -- Secondary resource of the player
-
-  print("This is gold : ", PlayerResource:GetGold(hero:GetPlayerOwnerID()))
-  print("This is lumber : ", PlayerResource:GetLumber(hero:GetPlayerOwnerID()))
-  PlayerResource:ModifyGold(hero, 100)
-  print("This is gold : ", PlayerResource:GetGold(hero:GetPlayerOwnerID()))
-  PlayerResource:ModifyLumber(hero, 100)
-  print("This is lumber : ", PlayerResource:GetLumber(hero:GetPlayerOwnerID()))
-
   -- if GameRules.stunHeroes then
   --   hero:AddNewModifier(nil, nil, "modifier_stunned", { })
   --   table.insert(GameRules.heroes,hero)
   -- end
+  Timers:CreateTimer(5, function()
+    if hero:IsNull() then
+      return
+    end
+    PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
+    PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
+    return 5.0
+  end)
+  PrintTable(hero)
+  PlayerResource:SetGold(hero,50)
+  PlayerResource:SetLumber(hero,100) -- Secondary resource of the player
+  PlayerResource:ModifyFood(hero, 0)
 end
 --======================== Initialize ent ===========================
 function InitializeBuilder(hero)

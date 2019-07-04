@@ -84,28 +84,28 @@
 
 
   //==============================ENT BUILDINGS=============================
-  "build_gold_mine_1"
+  "build_resource_storage_1"
   {
-    "BaseClass"       "ability_datadriven"
-    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-    "AbilityTextureName"  "build_gold_mine"
-    "AbilityCastRange"    "200"
-    "Building"        "1"
-    "BuildTime"       "3.0"
-    "Scale"         "1"
-    "UnitName"        "gold_mine_1"
-    "MaxLevel"        "1"
+    "BaseClass"               "ability_datadriven"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"      "build_resource_storage"
+    "AbilityCastRange"        "200"
+    "Building"                "1"
+    "BuildTime"               "3.0"
+    "Scale"                   "1"
+    "UnitName"                "resource_storage_1"
+    "MaxLevel"                "1"
     "AbilitySpecial"
     {
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "gold_cost"       "0"
+        "gold_cost"       "20"
       }
       "02"
       {
         "var_type"        "FIELD_INTEGER"
-        "lumber_cost"     "0"
+        "lumber_cost"     "40"
       }
     }
     
@@ -118,74 +118,295 @@
       }
     }
   }
-  "build_resource_storage_1"
-  {
-
-  }
   "upgrage_to_resource_storage_2"
   {
 
   }
   "upgrade_to_resource_storage_3"
   {
-  
+
   }
   "build_tree_of_life"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_tree_of_life"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "tree_of_life"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
   "build_tree_aura"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_tree_aura"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "tree_aura"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
   "build_noob_infernal_killer"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_noob_infernal_killer"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "noob_infernal_killer"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
   "build_basic_tree"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_basic_tree"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "basic_tree"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
   "build_armored_tree"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_armored_tree"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "armored_tree"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
   "build_sentry_tower"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_sentry_tower"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "sentry_tower"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
   "build_invisible_tree"
   {
-
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"  "build_invisible_tree"
+    "AbilityCastRange"    "200"
+    "Building"        "1"
+    "BuildTime"       "3.0"
+    "Scale"         "1"
+    "UnitName"        "invisible_tree"
+    "MaxLevel"        "1"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "gold_cost"       "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "lumber_cost"     "50"
+      }
+    }
+    
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "builder.lua"
+        "Function"    "Build"
+      }
+    }
   }
+
 //============================BUILDINGS ABILITIES===================================
-  "gold_mine_ability"
+
+  "produce_gold_and_lumber"
   {
     "BaseClass"           "ability_datadriven"
     "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
-    "AbilityTextureName"        "alchemist_goblins_greed"
+    "AbilityTextureName"        "produce_gold_and_lumber"
     "MaxLevel"            "1"
 
     "ConstructionCompleteModifiers"
     {
-      "1"             "modifier_gold_mine"
+      "1"             "modifier_produce_gold_and_lumber"
     } 
-    "Modifiers" {
-      "modifier_gold_mine" {
-        "OnCreated"{
-          "RunScript"{
-            "ScriptFile"      "custom_abilities.lua"
-            "Function"        "GoldMineCreate"
+    "Modifiers" 
+    {
+      "modifier_produce_gold_and_lumber" 
+      {
+
+        "Passive" "1"
+        "OnCreated"
+        {
+          "RunScript"
+          {
+            "ScriptFile"      "abilities/custom_abilities.lua"
+            "Function"        "ProduceLumberandGoldCreate"
           }
         }
-        "OnDestroy"{
-          "RunScript"{
-            "ScriptFile"      "custom_abilities.lua"
-            "Function"        "GoldMineDestroy"
+        "OnDestroy"
+        {
+          "RunScript"
+          {
+            "ScriptFile"      "abilities/custom_abilities.lua"
+            "Function"        "ProduceLumberandGoldDestroy"
           }
         }
       }
     }
+  }
+
+  "unobstructed_vision"
+  {
+
   }
 
 }

@@ -8,14 +8,14 @@
     "DisableWearables"         "1"
     "UnitLabel"                 "builder"
     "AbilityLayout"             "1"
-    "Ability1"          "antimage_blink" 
-    "Ability2"          "build_gold_mine_1" 
-    "Ability3"          "barebones_empty3" 
-    "Ability4"          "barebones_empty4"
-    "Ability5"          "barebones_empty5"
-    "Ability6"          "barebones_empty6"
-    "Ability7"          ""
-    "Ability8"          ""
+    "Ability1"          "build_resource_storage_1" 
+    "Ability2"          "build_tree_of_life" 
+    "Ability3"          "build_basic_tree"
+    "Ability4"          "build_armored_tree"
+    "Ability5"          "build_invisible_tree"
+    "Ability6"          "build_sentry_tower"
+    "Ability7"          "build_noob_infernal_killer"
+    "Ability8"          "build_tree_aura"
     "Ability9"          ""
     "Ability10"         ""
     "Ability11"         ""
@@ -61,3 +61,7 @@
     "VisionNighttimeRange"    "1800"                  // Range of vision at night time.
   }
 }
+
+//"models/items/warlock/golem/ti_8_warlock_darkness_apostate_golem/ti_8_warlock_darkness_apostate_golem.vmdl" golem intelligence
+//"models/items/warlock/golem/grimoires_pitlord_ultimate/grimoires_pitlord_ultimate.vmdl" golem agi
+//"models/items/warlock/golem/hellsworn_golem/hellsworn_golem.vmdl" golem strength

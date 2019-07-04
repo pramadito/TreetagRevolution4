@@ -992,7 +992,8 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     construction_size = construction_size or BuildingHelper:GetConstructionSize(name)
     pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(name)
     BuildingHelper:SnapToGrid(construction_size, location)
-    local playerID = type(player)=="number" and player or player:GetPlayerID() --accept pass player ID or player Handle
+    local playerID = type(player)=="number" and player or player:GetPlayerID()
+    --accept pass player ID or player Handle
     local player = PlayerResource:GetPlayer(playerID)
     local playersHero = PlayerResource:GetSelectedHeroEntity(playerID)
     BuildingHelper:print("PlaceBuilding for playerID ".. playerID)
@@ -1006,6 +1007,8 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
 
     -- Spawn the building
     local building = CreateUnitByName(name, model_location, false, playersHero, player, playersHero:GetTeamNumber())
+    if PlayerResource:IsValidPlayerID(playerID) then building:SetControllableByPlayer(playerID, true) end
+    if hero then building:SetOwner(hero) end
     building:SetControllableByPlayer(playerID, true)
     building:SetNeverMoveToClearSpace(true)
     building:SetOwner(playersHero)
@@ -1195,7 +1198,7 @@ function BuildingHelper:StartBuilding(builder)
     -------------------------------------------------------------------
 
     -- whether the building is controllable or not
-    local bPlayerCanControl = buildingTable:GetVal("PlayerCanControl", "bool")
+    local bPlayerCanControl = GetUnitKV(building:GetUnitName(),"PlayerCanControl")
     if bPlayerCanControl then
         building:SetControllableByPlayer(playerID, true)
         building:SetOwner(playersHero)
