@@ -312,20 +312,16 @@ function BuildingHelper:RegrowTreesAOE(keys)
     local target_point = keys.target_points[1]
     local point_x = target_point.x
     local point_y = target_point.y
-    local radius = keys.Radius
-    local no_entities = Entities:FindAllInSphere(target_point, 200)
-    -- local event = { state = "active", size = size, scale = fMaxScale, builderIndex = builder:GetEntityIndex() }
-    -- CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
-
     local units = FindUnitsInRadius(team, target_point, nil, 335, DOTA_UNIT_TARGET_TEAM_BOTH ,  DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
     local playerID = caster:GetMainControllingPlayer()
 
     if #units > 0 then
-        SendErrorMessage(playerID, "#There is unit nearby")
+        SendErrorMessage(playerID, "#error_unit_nearby")
+        return
     else
         for _,tree in pairs(BuildingHelper.AllTrees) do
             local pos = tree:GetAbsOrigin()
-             local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
+            local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
             if (inside <= (radius^2)) then
                 BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
                 UTIL_Remove(tree.chopped_dummy)

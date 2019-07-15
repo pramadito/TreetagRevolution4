@@ -80,13 +80,11 @@ end
   It can be used to initialize non-hero player state or adjust the hero selection (i.e. force random etc)
 ]]
 function GameMode:OnAllPlayersLoaded()
-  DebugPrint("[BAREBONES] All Players have loaded into the game")
-
+  print("[BAREBONES] All Players have loaded into the game")
 end
 
 
 function InitializeHero(hero)
-  
   hero.food = 0
   hero.buildings = {} -- This keeps the name and quantity of each building
   hero.units = {}
@@ -103,9 +101,8 @@ function InitializeHero(hero)
     end
     PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
     PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
-    return 5.0
+    return 5
   end)
-  PrintTable(hero)
   PlayerResource:SetGold(hero,50)
   PlayerResource:SetLumber(hero,100) -- Secondary resource of the player
   PlayerResource:ModifyFood(hero, 0)
@@ -179,6 +176,7 @@ function GameMode:InitGameMode()
 
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
   Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )
+  Convars:RegisterCommand( "greed_is_good", Dynamic_Wrap(GameMode, 'GreedIsGood'), "GreedIsGood", FCVAR_CHEAT )
 
   DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end
@@ -197,6 +195,18 @@ function GameMode:ExampleConsoleCommand()
 
   print( '*********************************************' )
 end
+
+function GameMode:GreedIsGood()
+  local cmdPlayer = Convars:GetCommandClient()
+  PrintTable(cmdPlayer)
+  local hero = cmdPlayer:GetAssignedHero()
+  PrintTable(hero)
+  if hero then
+    PlayerResource:SetGold(hero, 10000)
+    PlayerResource:SetLumber(hero, 10000)
+  end
+end
+
 
 --========================GAME RULES=========================
 --50 GOLD, 100 WOOD; GET GOLD AND WOOD PER 5 SECONDS + RESOURCE STORAGE; THIS IS FOR ent

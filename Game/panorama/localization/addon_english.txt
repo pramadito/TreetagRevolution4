@@ -7,14 +7,45 @@
 
 	"DOTA_GoodGuys"   								"Ent"
 	"DOTA_BadGuys"    								"Infernal"
-	"DOTA_Custom1"    								"Pink Dragon"
-	"DOTA_Custom2"    								"Orange Dog"
-	"DOTA_Custom3"    								"Blue Rooster"
-	"DOTA_Custom4"    								"Green Ram"
-	"DOTA_Custom5"    								"Brown Rat"
-	"DOTA_Custom6"    								"Cyan Boar"
-	"DOTA_Custom7"    								"Olive Snake"
-	"DOTA_Custom8"    								"Purple Horse"
 	
-	"addonname"										"Barebones"
+	"addonname"										"Tree Tag"
+	"Language"		"english"
+	"Tokens"
+	{
+        "locale" 					"en"
+		"addon_game_name"			"Tree Tag"
+		
+		// ******************** HEROES ********************
+		"npc_dota_hero_wisp"        "Ent"
+
+		// ******************** UNITS ********************
+		"resource_storage_1"	"Resource Storage Small"
+		"resource_storage_2"	"Resource Storage Medium"
+		"resource_storage_3"	"Resource Storage Big"
+		"sentry_tower"			"Sentry Tower"
+		"basic_tree"			"Basic Tree"
+		"armored_tree"			"Armored Tree"
+		"invisible_tree"		"Invisible Tree"
+		"tree_of_life"			"Tree of Life"
+
+
+		// ********************* ITEMS ********************
+		"DOTA_Tooltip_Ability_item_ent_blink"		"Blink Dagger"
+		"DOTA_Tooltip_Ability_item_ent_hand_1"		"Regrow"
+		"DOTA_Tooltip_Ability_item_ent_hand_2"		"Destroy Tree"
+		"DOTA_Tooltip_Ability_item_ent_invis"		"Wind Walk"
+		"DOTA_Tooltip_Ability_item_ent_destroy_aoe"	"Destroy Tree AOE"
+
+		// ********************* SPELLS ********************
+		"DOTA_Tooltip_Ability_build_resource_storage_1"		"Build Resource Storage"
+		"DOTA_Tooltip_Ability_build_tree_of_life"			"Build Tree of Life"
+		"DOTA_Tooltip_Ability_build_basic_tree"				"Build Basic Tree"
+		"DOTA_Tooltip_Ability_build_armored_tree"			"Build Armored Tree"
+		"DOTA_Tooltip_Ability_build_invisible_tree"			"Build Invisible Tree"
+		"DOTA_Tooltip_Ability_build_sentry_tower"			"Build Sentry Tower"
+		"DOTA_Tooltip_Ability_build_noob_infernal_killer"	"Build Noob Infernal Killer"
+
+		// ********************* ERRORS ********************
+		"error_unit_nearby"	"There is units nearby"
+	}
 }

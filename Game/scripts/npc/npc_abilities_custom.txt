@@ -367,17 +367,17 @@
 
 //============================BUILDINGS ABILITIES===================================
 
+
   "produce_gold_and_lumber"
   {
     "BaseClass"           "ability_datadriven"
     "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityTextureName"        "produce_gold_and_lumber"
     "MaxLevel"            "1"
-
-    "ConstructionCompleteModifiers"
-    {
-      "1"             "modifier_produce_gold_and_lumber"
-    } 
+    // "ConstructionCompleteModifiers"
+    // {
+    //   "1"             "modifier_produce_gold_and_lumber"
+    // } 
     "Modifiers" 
     {
       "modifier_produce_gold_and_lumber" 
@@ -406,7 +406,78 @@
 
   "unobstructed_vision"
   {
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityTextureName"        "unobstructed_vision"
+    "MaxLevel"                  "1"
+    "Modifiers" 
+    {
+      "modifier_unobstructed_vision" 
+      {
 
+        "Passive" "1"
+        "OnCreated"
+        {
+          "RunScript"
+          {
+            "ScriptFile"      "abilities/custom_abilities.lua"
+            "Function"        "RevealAreaSentryTower"
+          }
+        }
+        "OnDestroy"
+        {
+          "RunScript"
+          {
+            "ScriptFile"      "abilities/custom_abilities.lua"
+            "Function"        "DestroyAreaSentryTower"
+          }
+        }
+      }
+    }
+  }
+    
+  "modifier_flying"
+  {
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityTextureName"        "unobstructed_vision"
+    "MaxLevel"                  "1"
+    "Modifiers"
+    {
+      "modifier_flying"
+      {
+        "Passive" "1"
+        "States"
+        {
+          "MODIFIER_STATE_FLYING"    "MODIFIER_STATE_VALUE_ENABLED"
+        }
+      }
+    }
+  }
+
+  "health_regen_tree_aura"
+  {
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
+  }
+
+  "mana_regen_tree_aura"
+  {
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
+  }
+
+//Shrine 
+  "healing_tree_aura"
+  {
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
   }
 
 }

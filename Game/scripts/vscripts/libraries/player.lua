@@ -147,6 +147,19 @@ function ModifyCompletedConstructionBuildingCount(hero, unitName, number)
 end
 
 
+-- function CDOTA_BaseNPC:IsElf()
+--     return self:GetUnitName() == ELF_HERO
+-- end
+-- function CDOTA_BaseNPC:IsTroll()
+--     return self:GetUnitName() == TROLL_HERO
+-- end
+-- function CDOTA_BaseNPC:IsAngel()
+--     return self:GetUnitName() == ANGEL_HERO
+-- end
+-- function CDOTA_BaseNPC:IsWolf()
+--     return self:GetUnitName() == WOLF_HERO
+-- end
+
 function CDOTA_PlayerResource:IsEnt(hero)
     return string.match(hero:GetUnitName(),"wisp")
 end

@@ -64,6 +64,7 @@ function Build( event )
 
         -- Refund resources for this cancelled work
         if work.refund and work.refund == true and not work.repair then
+            print("TESTING")
             PlayerResource:ModifyGold(hero,gold_cost,true)
             PlayerResource:ModifyLumber(hero,lumber_cost,true)
         end
@@ -102,6 +103,17 @@ function Build( event )
 
         -- Remove invulnerability on npc_dota_building baseclass
         unit:RemoveModifierByName("modifier_invulnerable")
+        -- for i=0, unit:GetAbilityCount()-1 do
+        --     local ability = unit:GetAbilityByIndex(i)
+        --     if ability then
+        --         local constructionStartModifiers = GetAbilityKV(ability:GetAbilityName(), "ConstructionStartModifiers")
+        --         if constructionStartModifiers then
+        --             for k,modifier in pairs(constructionStartModifiers) do
+        --                 ability:ApplyDataDrivenModifier(unit, unit, modifier, {})
+        --             end
+        --         end
+        --     end
+        -- end
     end)
 
     -- A building finished construction
