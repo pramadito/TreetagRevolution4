@@ -10,7 +10,6 @@ function GameMode:_OnGameRulesStateChange(keys)
   elseif newState == DOTA_GAMERULES_STATE_INIT then
     --Timers:RemoveTimer("alljointimer")
   elseif newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-    GameMode:PostLoadPrecache()
     GameMode:OnAllPlayersLoaded()
 
     if USE_CUSTOM_TEAM_COLORS_FOR_PLAYERS then

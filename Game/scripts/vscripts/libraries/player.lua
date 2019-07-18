@@ -10,14 +10,14 @@ if GameRules.disconnectedHeroSelects == nil then
   GameRules.disconnectedHeroSelects = {}
 end
 
-function CDOTA_PlayerResource:SetSelectedHero(playerID, heroName)
-    local player = PlayerResource:GetPlayer(playerID)
-  if player == nil then
-        GameRules.disconnectedHeroSelects[playerID] = heroName
-        return
-  end
-    player:SetSelectedHero(heroName)
-end
+-- function CDOTA_PlayerResource:SetSelectedHero(playerID, heroName)
+--     local player = PlayerResource:GetPlayer(playerID)
+--   if player == nil then
+--         GameRules.disconnectedHeroSelects[playerID] = heroName
+--         return
+--   end
+--     player:SetSelectedHero(heroName)
+-- end
 
 function CDOTA_PlayerResource:SetGold(hero,gold)
     local playerID = hero:GetPlayerOwnerID()

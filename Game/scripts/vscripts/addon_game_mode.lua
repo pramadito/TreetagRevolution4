@@ -26,15 +26,27 @@ function Precache( context )
 
   -- Entire items can be precached by name
   -- Abilities can also be precached in this way despite the name
-  PrecacheItemByNameSync("item_treant_hand_1", context)
-  PrecacheItemByNameSync("item_treant_hand_2", context)
-  PrecacheItemByNameSync("item_treant_blink", context)
+  PrecacheItemByNameSync("item_ent_hand_1", context)
+  PrecacheItemByNameSync("item_ent_hand_2", context)
+  PrecacheItemByNameSync("item_ent_blink", context)
+  PrecacheItemByNameSync("item_ent_invis", context)
+  PrecacheItemByNameSync("item_ent_destroy_aoe", context)
+
 
 
   -- Entire heroes (sound effects/voice/models/particles) can be precached with PrecacheUnitByNameSync
   -- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
   PrecacheUnitByNameSync("npc_dota_hero_wisp", context)
-  PrecacheUnitByNameSync("gold_mine_1", context)
+  PrecacheUnitByNameSync("npc_dota_hero_warlock", context)
+  PrecacheUnitByNameSync("resource_storage_1", context)
+  PrecacheUnitByNameSync("resource_storage_2", context)
+  PrecacheUnitByNameSync("resource_storage_3", context)
+  PrecacheUnitByNameSync("sentry_tower", context)
+  PrecacheUnitByNameSync("basic_tree", context)
+  PrecacheUnitByNameSync("armored_tree", context)
+  PrecacheUnitByNameSync("invisible_tree", context)
+  PrecacheUnitByNameSync("tree_of_life", context)
+  
 end
 
 -- Create the game mode when we activate

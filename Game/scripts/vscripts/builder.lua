@@ -64,7 +64,6 @@ function Build( event )
 
         -- Refund resources for this cancelled work
         if work.refund and work.refund == true and not work.repair then
-            print("TESTING")
             PlayerResource:ModifyGold(hero,gold_cost,true)
             PlayerResource:ModifyLumber(hero,lumber_cost,true)
         end
@@ -145,15 +144,21 @@ end
 
 -- Called when the Cancel ability-item is used
 function CancelBuilding( keys )
+    local caster = event.caster
+    local ability = event.ability
+    local ability_name = ability:GetAbilityName()
     local building = keys.unit
     local hero = building:GetOwner()
     local playerID = building:GetPlayerOwnerID()
+    local gold_cost = ability:GetSpecialValueFor("gold_cost")
+    local lumber_cost = ability:GetSpecialValueFor("lumber_cost")
 
     BuildingHelper:print("CancelBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
 
     -- Refund here
     if building.gold_cost then
-        hero:ModifyGold(building.gold_cost, false, 0)
+        PlayerResource:ModifyGold(hero,gold_cost,true)
+        PlayerResource:ModifyLumber(hero,lumber_cost,true)
     end
 
     -- Eject builder

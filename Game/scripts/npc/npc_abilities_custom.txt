@@ -480,5 +480,18 @@
     "MaxLevel"                  "1"
   }
 
+// Warlock picking phase (abilities)
+  "pick_str_infernal"
+  {
+
+  }
+  "pick_agi_infernal"
+  {
+
+  }
+  "pick_int_infernal"
+  {
+    
+  }
 }
 

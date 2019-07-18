@@ -44,6 +44,7 @@
 		"DOTA_Tooltip_Ability_build_invisible_tree"			"Build Invisible Tree"
 		"DOTA_Tooltip_Ability_build_sentry_tower"			"Build Sentry Tower"
 		"DOTA_Tooltip_Ability_build_noob_infernal_killer"	"Build Noob Infernal Killer"
+		"DOTA_Tooltip_Ability_build_tree_aura"				"Build Tree Aura"
 
 		// ********************* ERRORS ********************
 		"error_unit_nearby"	"There is units nearby"

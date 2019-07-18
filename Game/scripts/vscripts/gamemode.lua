@@ -40,33 +40,6 @@ require('settings')
 require('events')
 
 
--- This is a detailed example of many of the containers.lua possibilities, but only activates if you use the provided "playground" map
---require("examples/worldpanelsExample")
-
---[[
-  This function should be used to set up Async precache calls at the beginning of the gameplay.
-
-  In this function, place all of your PrecacheItemByNameAsync and PrecacheUnitByNameAsync.  These calls will be made
-  after all players have loaded in, but before they have selected their heroes. PrecacheItemByNameAsync can also
-  be used to precache dynamically-added datadriven abilities instead of items.  PrecacheUnitByNameAsync will 
-  precache the precache{} block statement of the unit and all precache{} block statements for every Ability# 
-  defined on the unit.
-
-  This function should only be called once.  If you want to/need to precache more items/abilities/units at a later
-  time, you can call the functions individually (for example if you want to precache units in a new wave of
-  holdout).
-
-  This function should generally only be used if the Precache() function in addon_game_mode.lua is not working.
-]]
-function GameMode:PostLoadPrecache()
-  DebugPrint("[BAREBONES] Performing Post-Load precache")    
-  --PrecacheItemByNameAsync("item_example_item", function(...) end)
-  --PrecacheItemByNameAsync("example_ability", function(...) end)
-
-  --PrecacheUnitByNameAsync("npc_dota_hero_viper", function(...) end)
-  --PrecacheUnitByNameAsync("npc_dota_hero_enigma", function(...) end)
-end
-
 --[[
   This function is called once and only once as soon as the first player (almost certain to be the server in local lobbies) loads in.
   It can be used to initialize state that isn't initializeable in InitGameMode() but needs to be done before everyone loads in.
@@ -81,6 +54,19 @@ end
 ]]
 function GameMode:OnAllPlayersLoaded()
   print("[BAREBONES] All Players have loaded into the game")
+  selectHero()
+
+end
+
+function selectHero()
+  allPlayersIDs = {}
+  for pID=0, DOTA_MAX_TEAM_PLAYERS do
+    if PlayerResource:IsValidPlayerID(pID) then
+      table.insert(allPlayersIDs, pID)
+    end
+  end
+  print("all players ID : ")
+  PrintTable(allPlayersIDs)
 end
 
 
@@ -105,6 +91,27 @@ function InitializeHero(hero)
   end)
   PlayerResource:SetGold(hero,50)
   PlayerResource:SetLumber(hero,100) -- Secondary resource of the player
+  PlayerResource:ModifyFood(hero, 0)
+end
+
+function InitializeBadHero(hero)
+  hero.food = 0
+  hero.buildings = {} -- This keeps the name and quantity of each building
+  hero.units = {}
+  hero.goldperfivesecond = 2
+  hero.lumberperfivesecond = 2
+  hero.disabledBuildings = {}
+
+  Timers:CreateTimer(5, function()
+    if hero:IsNull() then
+      return
+    end
+    PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
+    PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
+    return 5
+  end)
+  PlayerResource:SetGold(hero,0)
+  PlayerResource:SetLumber(hero,0) -- Secondary resource of the player
   PlayerResource:ModifyFood(hero, 0)
 end
 --======================== Initialize ent ===========================
@@ -133,7 +140,7 @@ end
 
 --======================== Initialize Infernal =========================
 function InitializeInfernal(hero)
-  -- body
+  InitializeBadHero(hero)
   hero:ClearInventory()
 
   -- local infernal_obs
@@ -149,7 +156,17 @@ end
   The hero parameter is the hero entity that just spawned in
 ]]
 function GameMode:OnHeroInGame(hero)
-	InitializeBuilder(hero)
+  local team = hero:GetTeam()
+  print("my team : " .. team)
+  local team_name = GetTeamName(team)
+  print(team_name)
+  if team == 2 then
+    print("become ent")
+    InitializeBuilder(hero)
+  elseif team == 3 then
+    print("become infernal")
+    InitializeInfernal(hero)
+  end
   -- if infernal get somethingesleseela
 end
 

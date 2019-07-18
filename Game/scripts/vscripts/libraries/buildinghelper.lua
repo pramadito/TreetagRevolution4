@@ -257,7 +257,7 @@ function BuildingHelper:OnEntityKilled(keys)
         UTIL_Remove(tree.chopped_dummy)
     end
 
-    tree.chopped_dummy = CreateUnitByName("npc_dota_units_base", treePos, false, nil, nil, 0)
+    tree.chopped_dummy = CreateUnitByName("npc_dota_base_dummy", treePos, false, nil, nil, 0)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
     BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
@@ -285,7 +285,7 @@ function BuildingHelper:OnTreeCut(keys)
     end
 
     -- Create a dummy for clients to be able to detect trees standing and block their grid
-    tree.chopped_dummy = CreateUnitByName("npc_dota_units_base", treePos, false, nil, nil, 0)
+    tree.chopped_dummy = CreateUnitByName("npc_dota_base_dummy", treePos, false, nil, nil, 0)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
     BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
@@ -310,6 +310,7 @@ function BuildingHelper:RegrowTreesAOE(keys)
     local caster = keys.caster
     local team = caster:GetTeam()
     local target_point = keys.target_points[1]
+    local radius = keys.Radius
     local point_x = target_point.x
     local point_y = target_point.y
     local units = FindUnitsInRadius(team, target_point, nil, 335, DOTA_UNIT_TARGET_TEAM_BOTH ,  DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
