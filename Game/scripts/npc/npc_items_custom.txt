@@ -2,14 +2,17 @@
 {
 	//======================================ENT ABILITIES (AS ITEM)=============================
 	//Regrow Tree
-	"item_treant_hand_1"
+	"item_ent_hand_1"
 	{
 		"ID"						    "3000"
 		"BaseClass"					    "item_datadriven"
 		"AbilityTextureName"			"item_treant_hand_1"
-		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 
+		"ItemDroppable" 				"0"
+				"ItemPurchasable" 				"0"
+		"ItemSellable"					"0"
 		"AbilityCastRange"			"500"
 		"AbilityCooldown"			"20"
 		"AbilityManaCost"			"40"
@@ -29,14 +32,14 @@
 			"RunScript"
 			{
 				"ScriptFile"		"abilities/custom_abilities.lua"
-				"Function"			"RegrowTreeAoE"
+				"Function"			"RegrowTreeAoE_Small"
 				"Radius"			"%affect_aoe"
 				"Target"			"POINT"
 			}
 		}
 	}
 	//Destroy Tree
-  	"item_treant_hand_2"
+  	"item_ent_hand_2"
 	{
 		// General
 		//-----------------------------------------------------------------------
@@ -44,7 +47,7 @@
 		"BaseClass"					    "item_datadriven"
 		"AbilityTextureName"			"item_treant_hand_2"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_UNIT_TARGET_CUSTOM"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
 
 		// Stats
@@ -68,19 +71,24 @@
 			}
 		}
 	}
-	"item_treant_blink"
+
+	"item_ent_blink"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"3003"														"BaseClass"					    "item_blink"
+		"ID"							"3002"	
+		"BaseClass"					    "item_blink"
 		"AbilityTextureName"			"item_blink"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
+		"ItemDroppable" 				"0"
+				"ItemPurchasable" 				"0"
+		"ItemSellable"					"0"
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.0"
-		"AbilityCooldown"				"15.0"
+		"AbilityCooldown"				"30.0"
 		"AbilityManaCost"				"0"
 
 		// Special	
@@ -104,18 +112,114 @@
 			}
 		}
 	}
-	item_treant_destroy_aoe
+
+	"item_ent_destroy_aoe"
 	{
+		"ID"						"3003"
+		"BaseClass"					"item_datadriven"
+		"AbilityTextureName"		"item_destroy_aoe"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+
+		"ItemDroppable" 			"0"
+		"ItemPurchasable" 			"0"
+		"ItemSellable"				"0"
+		"AbilityCastRange"			"600"
+		"AbilityCastPoint"			"0.45"
+		"AbilityCooldown"			"10"
+		"AbilityManaCost"			"40"
+		"AoERadius"				 	"%affect_aoe"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"affect_aoe"		"200"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"		"abilities/custom_abilities.lua"
+				"Function"			"DestroyTreesAoE"
+				"Radius"			"%affect_aoe"
+				"Target"			"POINT"
+			}
+		}
+	}
+
+	"item_ent_invis"
+	{
+		"ID"					"3004"
+		"BaseClass"				"item_invis_sword"
+		"AbilityTextureName"	"item_treant_invis"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+
+		"ItemDroppable" 			"0"
+		"ItemPurchasable" 			"0"
+		"ItemSellable"				"0"
+		"AbilityCooldown"			"45"
+		"AbilityManaCost"			"150"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_attack_speed"	"0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"windwalk_duration"		"15"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"windwalk_movement_speed"	"30"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"windwalk_fade_time"	"0.3"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"windwalk_bonus_damage"	"1000"
+			}
+		}
+	}
+
+	"item_building_cancel"
+	{
+		"BaseClass"             		"item_datadriven"
+		"ID"                            "3005"
+		"AbilityTextureName"			"item_cancel"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+		"AbilityCastPoint"				"0"
+	
+		"ItemDroppable" 				"0"
+		"ItemPurchasable" 				"0"
+		"ItemSellable"					"0"
 		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"		"CancelBuilding"
+			}
+		}
 	}
-	item_treant_invis
-	{
 
-	}
-	item_treant_regrow
-	{
 
-	}
 	item_infernal_blink
 	{
 

@@ -125,37 +125,7 @@ end
 
 -- This requires that buildinghelper is required before the usage of these functions
 function BuildingHelper:HookFunctions()
-    local oldSetTreeRegrowTime = GameRules.SetTreeRegrowTime
-    BuildingHelper.TreeRegrowTime = 300
-    GameRules.SetTreeRegrowTime = function(gameRules, time)
-        BuildingHelper.TreeRegrowTime = time
-        oldSetTreeRegrowTime(gameRules, time)
-    end
-
-    local oldRegrowAllTrees = GridNav.RegrowAllTrees
-    GridNav.RegrowAllTrees = function(gridNav)
-        for _,dummy in pairs(BuildingHelper.TreeDummies) do
-            UTIL_Remove(dummy)
-        end
-        BuildingHelper.TreeDummies = {}
-        oldRegrowAllTrees(gridNav)
-    end
-
-    local oldCutDownRegrowAfter = CDOTA_MapTree.CutDownRegrowAfter
-    CDOTA_MapTree.CutDownRegrowAfter = function(tree, time, team)
-        oldCutDownRegrowAfter(tree, time, team)
-        Timers:CreateTimer(time, function()
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
-        end)
-    end
-
-    local oldGrowBack = CDOTA_MapTree.GrowBack
-    CDOTA_MapTree.GrowBack = function(tree)
-        BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-        UTIL_Remove(tree.chopped_dummy)
-        oldGrowBack(tree)
-    end
+    --idontneedthisithinkhehe
 end
 
 function BuildingHelper:LoadSettings()
@@ -241,6 +211,12 @@ function BuildingHelper:OnEntityKilled(keys)
     local killed = EntIndexToHScript(keys.entindex_killed)
     local unitTable = killed:GetKeyValue()
     local gridTable = unitTable and unitTable["Grid"]
+    local pos = killed:GetAbsOrigin()
+    local x = pos.x
+    local y = pos.y
+    print("[BH] Entity killed")
+    print("[BH] pos x : "..x.." pos y : "..y)
+    
 
     if IsBuilder(killed) then
         BuildingHelper:ClearQueue(killed)
@@ -262,10 +238,35 @@ function BuildingHelper:OnEntityKilled(keys)
             end
         end
     end
+
+    local treePos = Vector(x, y, 0)
+    local tree -- Figure out which tree was cut
+    for _,t in pairs(BuildingHelper.AllTrees) do
+        local pos = t:GetAbsOrigin()
+        if pos.x == x and pos.y == y then
+            tree = t
+            break
+        end
+    end
+
+    if not tree then
+        BuildingHelper:print("ERROR: OnEntityKilled couldn't find a tree for pos "..x..","..y)
+        return
+    elseif tree.chopped_dummy then
+        BuildingHelper:print("[BH] Tree dummy removed")
+        UTIL_Remove(tree.chopped_dummy)
+    end
+
+    tree.chopped_dummy = CreateUnitByName("npc_dota_base_dummy", treePos, false, nil, nil, 0)
+    tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
+    tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
+    BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
+
 end
 
 function BuildingHelper:OnTreeCut(keys)
     local treePos = Vector(keys.tree_x, keys.tree_y, 0)
+    -- print("This is Tree Pos", treePos)
     local tree -- Figure out which tree was cut
     for _,t in pairs(BuildingHelper.AllTrees) do
         local pos = t:GetAbsOrigin()
@@ -276,19 +277,20 @@ function BuildingHelper:OnTreeCut(keys)
     end
 
     if not tree then
-        --BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..keys.tree_x..","..keys.tree_y)
-        BuildingHelper:print(keys)
+        BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..keys.tree_x..","..keys.tree_y)
+        --BuildingHelper:print(keys)
         return
     elseif tree.chopped_dummy then
         UTIL_Remove(tree.chopped_dummy)
     end
 
     -- Create a dummy for clients to be able to detect trees standing and block their grid
-    -- print("Hello i just want to test this eheehehehehehe")
-    tree.chopped_dummy = CreateUnitByName("npc_dota_units_base", treePos, false, nil, nil, 0)
+    tree.chopped_dummy = CreateUnitByName("npc_dota_base_dummy", treePos, false, nil, nil, 0)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
+    tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
     BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
-    PrintTable(BuildingHelper.TreeDummies)
+    -- print("This is all the dummies : ")
+    -- PrintTable(BuildingHelper.TreeDummies)
 
     -- Allow construction
     if not GridNav:IsBlocked(treePos) then
@@ -296,12 +298,37 @@ function BuildingHelper:OnTreeCut(keys)
     end
 
     -- Remove the dummy, allowing the tree to regrow
-    Timers:CreateTimer(BuildingHelper.TreeRegrowTime, function()
-        if IsValidEntity(tree.chopped_dummy) then
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
+    -- Timers:CreateTimer(BuildingHelper.TreeRegrowTime, function()
+    --     if IsValidEntity(tree.chopped_dummy) then
+    --         BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
+    --         UTIL_Remove(tree.chopped_dummy)
+    --     end
+    -- end)
+end
+
+function BuildingHelper:RegrowTreesAOE(keys)
+    local caster = keys.caster
+    local team = caster:GetTeam()
+    local target_point = keys.target_points[1]
+    local radius = keys.Radius
+    local point_x = target_point.x
+    local point_y = target_point.y
+    local units = FindUnitsInRadius(team, target_point, nil, 335, DOTA_UNIT_TARGET_TEAM_BOTH ,  DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
+    local playerID = caster:GetMainControllingPlayer()
+
+    if #units > 0 then
+        SendErrorMessage(playerID, "#error_unit_nearby")
+        return
+    else
+        for _,tree in pairs(BuildingHelper.AllTrees) do
+            local pos = tree:GetAbsOrigin()
+            local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
+            if (inside <= (radius^2)) then
+                BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
+                UTIL_Remove(tree.chopped_dummy)
+            end
         end
-    end)
+    end
 end
 
 function BuildingHelper:InitGNV()
@@ -962,7 +989,8 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     construction_size = construction_size or BuildingHelper:GetConstructionSize(name)
     pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(name)
     BuildingHelper:SnapToGrid(construction_size, location)
-    local playerID = type(player)=="number" and player or player:GetPlayerID() --accept pass player ID or player Handle
+    local playerID = type(player)=="number" and player or player:GetPlayerID()
+    --accept pass player ID or player Handle
     local player = PlayerResource:GetPlayer(playerID)
     local playersHero = PlayerResource:GetSelectedHeroEntity(playerID)
     BuildingHelper:print("PlaceBuilding for playerID ".. playerID)
@@ -976,6 +1004,8 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
 
     -- Spawn the building
     local building = CreateUnitByName(name, model_location, false, playersHero, player, playersHero:GetTeamNumber())
+    if PlayerResource:IsValidPlayerID(playerID) then building:SetControllableByPlayer(playerID, true) end
+    if hero then building:SetOwner(hero) end
     building:SetControllableByPlayer(playerID, true)
     building:SetNeverMoveToClearSpace(true)
     building:SetOwner(playersHero)
@@ -1051,9 +1081,10 @@ function BuildingHelper:RemoveBuilding(building, bSkipEffects)
         end
     end
 
-    if building.prop then
-        UTIL_Remove(building.prop)
-    end
+    -- Remove prop maybe accidentally cause tree to grow?
+    -- if building.prop then
+    --     UTIL_Remove(building.prop)
+    -- end
 
     BuildingHelper:FreeGridSquares(BuildingHelper:GetConstructionSize(building), building:GetAbsOrigin())
 
@@ -1164,7 +1195,7 @@ function BuildingHelper:StartBuilding(builder)
     -------------------------------------------------------------------
 
     -- whether the building is controllable or not
-    local bPlayerCanControl = buildingTable:GetVal("PlayerCanControl", "bool")
+    local bPlayerCanControl = GetUnitKV(building:GetUnitName(),"PlayerCanControl")
     if bPlayerCanControl then
         building:SetControllableByPlayer(playerID, true)
         building:SetOwner(playersHero)

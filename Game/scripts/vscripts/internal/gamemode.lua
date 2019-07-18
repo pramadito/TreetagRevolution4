@@ -165,7 +165,7 @@ function GameMode:_CaptureGameMode()
 
     mode:SetBotThinkingEnabled( USE_STANDARD_DOTA_BOT_THINKING )
     mode:SetTowerBackdoorProtectionEnabled( ENABLE_TOWER_BACKDOOR_PROTECTION )
-
+    
     mode:SetFogOfWarDisabled(DISABLE_FOG_OF_WAR_ENTIRELY)
     mode:SetGoldSoundDisabled( DISABLE_GOLD_SOUNDS )
     mode:SetRemoveIllusionsOnDeath( REMOVE_ILLUSIONS_ON_DEATH )
@@ -189,7 +189,6 @@ function GameMode:_CaptureGameMode()
     end
 
     mode:SetUnseenFogOfWarEnabled( USE_UNSEEN_FOG_OF_WAR )
-
     mode:SetDaynightCycleDisabled( DISABLE_DAY_NIGHT_CYCLE )
     mode:SetKillingSpreeAnnouncerDisabled( DISABLE_KILLING_SPREE_ANNOUNCER )
     mode:SetStickyItemDisabled( DISABLE_STICKY_ITEM )

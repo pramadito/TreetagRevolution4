@@ -145,6 +145,7 @@ function StartBuildingHelper( params )
 
     if (state == 'active')
     {   
+        //$.Msg("[BH.JS] Enter active state")
         $.Schedule(frame_rate, StartBuildingHelper);
 
         // Get all the visible entities
@@ -157,11 +158,15 @@ function StartBuildingHelper( params )
         entities = entities.concat(building_entities)
         entities = entities.concat(creature_entities)
         entities = entities.concat(dummy_entities)
+        //$.Msg("[BH.JS] dummy entities : " + dummy_entities)
 
         // Build the entity grid with the construction sizes and entity origins
         entityGrid = []
         for (var i = 0; i < entities.length; i++)
         {
+            //$.Msg("[BH.JS] For loop" + i)
+            //$.Msg("[BH.JS] " + !Entities.IsAlive(entities[i]) + " " + Entities.IsOutOfGame(entities[i]) + " " + !HasModifier(entities[i], "modifier_building"))
+            //$.Msg(!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building"))
             if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
             var entPos = Entities.GetAbsOrigin( entities[i] )
             var squares = GetConstructionSize(entities[i])
@@ -220,7 +225,14 @@ function StartBuildingHelper( params )
                     var treePos = Entities.GetAbsOrigin(tree_entities[i])
                     // Block the grid if the tree isn't chopped
                     if (cutTrees[treePos] === undefined)
-                        BlockGridSquares(treePos, 2, "TREE")                    
+                        {
+                        BlockGridSquares(treePos, 2, "TREE")
+                        }
+                    else if (!HasModifier(cutTrees[treePos],"modifier_tree_cut"))
+                        {
+                        cutTrees[treePos] = undefined 
+                        BlockGridSquares(treePos, 2, "TREE")                   
+                        }
                 }
             }
         }
@@ -410,7 +422,7 @@ function SendBuildCommand( params )
 {
     if (invalid)
     {
-        CreateErrorMessage({message:"#error_invalid_build_position"})
+        CreateErrorMessage({message:"#Invalid Position"})
         return true
     }
 
@@ -516,7 +528,7 @@ function RequestGNV () {
 
     GameEvents.Subscribe( "building_helper_enable", StartBuildingHelper);
     GameEvents.Subscribe( "building_helper_end", EndBuildingHelper);
-
+    
     GameEvents.Subscribe( "gnv_register", RegisterGNV);
 })();
 

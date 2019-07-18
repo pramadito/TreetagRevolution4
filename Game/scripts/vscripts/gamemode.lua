@@ -15,17 +15,16 @@ require('libraries/timers')
 -- This library can be used for advancted physics/motion/collision of units.  See PhysicsReadme.txt for more information.
 --require('libraries/physics')
 -- This library can be used for advanced 3D projectile systems.
-require('libraries/projectiles')
 -- This library can be used for sending panorama notifications to the UIs of players/teams/everyone
 require('libraries/notifications')
 -- This library can be used for starting customized animations on units from lua
 require('libraries/animations')
 -- This library can be used for performing "Frankenstein" attachments on units
-require('libraries/attachments')
+-- require('libraries/attachments')
 -- This library can be used to synchronize client-server data via player/client-specific nettables
 --require('libraries/playertables')
 -- This library provides a searchable, automatically updating lua API in the tools-mode via "modmaker_api" console command
-require('libraries/modmaker')
+-- require('libraries/modmaker')
 -- This library (by Noya) provides player selection inspection and management from server lua
 require('libraries/selection')
 -- copied from tne
@@ -41,33 +40,6 @@ require('settings')
 require('events')
 
 
--- This is a detailed example of many of the containers.lua possibilities, but only activates if you use the provided "playground" map
---require("examples/worldpanelsExample")
-
---[[
-  This function should be used to set up Async precache calls at the beginning of the gameplay.
-
-  In this function, place all of your PrecacheItemByNameAsync and PrecacheUnitByNameAsync.  These calls will be made
-  after all players have loaded in, but before they have selected their heroes. PrecacheItemByNameAsync can also
-  be used to precache dynamically-added datadriven abilities instead of items.  PrecacheUnitByNameAsync will 
-  precache the precache{} block statement of the unit and all precache{} block statements for every Ability# 
-  defined on the unit.
-
-  This function should only be called once.  If you want to/need to precache more items/abilities/units at a later
-  time, you can call the functions individually (for example if you want to precache units in a new wave of
-  holdout).
-
-  This function should generally only be used if the Precache() function in addon_game_mode.lua is not working.
-]]
-function GameMode:PostLoadPrecache()
-  DebugPrint("[BAREBONES] Performing Post-Load precache")    
-  --PrecacheItemByNameAsync("item_example_item", function(...) end)
-  --PrecacheItemByNameAsync("example_ability", function(...) end)
-
-  --PrecacheUnitByNameAsync("npc_dota_hero_viper", function(...) end)
-  --PrecacheUnitByNameAsync("npc_dota_hero_enigma", function(...) end)
-end
-
 --[[
   This function is called once and only once as soon as the first player (almost certain to be the server in local lobbies) loads in.
   It can be used to initialize state that isn't initializeable in InitGameMode() but needs to be done before everyone loads in.
@@ -81,34 +53,82 @@ end
   It can be used to initialize non-hero player state or adjust the hero selection (i.e. force random etc)
 ]]
 function GameMode:OnAllPlayersLoaded()
-  DebugPrint("[BAREBONES] All Players have loaded into the game")
+  print("[BAREBONES] All Players have loaded into the game")
+  selectHero()
 
+end
+
+function selectHero()
+  allPlayersIDs = {}
+  for pID=0, DOTA_MAX_TEAM_PLAYERS do
+    if PlayerResource:IsValidPlayerID(pID) then
+      table.insert(allPlayersIDs, pID)
+    end
+  end
+  print("all players ID : ")
+  PrintTable(allPlayersIDs)
 end
 
 
 function InitializeHero(hero)
-	PlayerResource:SetGold(hero,0)
-  PlayerResource:SetLumber(hero,0)
-  Timers:CreateTimer(0.25,function()
-  local player = PlayerResource:GetPlayer(pID)
-    if player then
-      CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = PlayerResource:GetLumber(pID) })
-      CustomGameEventManager:Send_ServerToPlayer(player, "player_custom_gold_changed", { gold = PlayerResource:GetGold(pID) })
+  hero.food = 0
+  hero.buildings = {} -- This keeps the name and quantity of each building
+  hero.units = {}
+  hero.goldperfivesecond = 2
+  hero.lumberperfivesecond = 2
+  hero.disabledBuildings = {}
+  -- if GameRules.stunHeroes then
+  --   hero:AddNewModifier(nil, nil, "modifier_stunned", { })
+  --   table.insert(GameRules.heroes,hero)
+  -- end
+  Timers:CreateTimer(5, function()
+    if hero:IsNull() then
+      return
     end
-    return 0.25
+    PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
+    PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
+    return 5
   end)
+  PlayerResource:SetGold(hero,50)
+  PlayerResource:SetLumber(hero,100) -- Secondary resource of the player
+  PlayerResource:ModifyFood(hero, 0)
 end
---======================== Initialize Treant ===========================
+
+function InitializeBadHero(hero)
+  hero.food = 0
+  hero.buildings = {} -- This keeps the name and quantity of each building
+  hero.units = {}
+  hero.goldperfivesecond = 2
+  hero.lumberperfivesecond = 2
+  hero.disabledBuildings = {}
+
+  Timers:CreateTimer(5, function()
+    if hero:IsNull() then
+      return
+    end
+    PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
+    PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
+    return 5
+  end)
+  PlayerResource:SetGold(hero,0)
+  PlayerResource:SetLumber(hero,0) -- Secondary resource of the player
+  PlayerResource:ModifyFood(hero, 0)
+end
+--======================== Initialize ent ===========================
 function InitializeBuilder(hero)
   InitializeHero(hero)
   hero:ClearInventory()
-  local treant_hand_1 = CreateItem("item_treant_hand_1", hero, hero)
-  local treant_hand_2 = CreateItem("item_treant_hand_2", hero, hero)
-  local treant_blink = CreateItem("item_treant_blink", hero, hero)
+  local ent_hand_1 = CreateItem("item_ent_hand_1", hero, hero)
+  local ent_hand_2 = CreateItem("item_ent_hand_2", hero, hero)
+  local ent_blink = CreateItem("item_ent_blink", hero, hero)
+  local ent_aoe = CreateItem("item_ent_destroy_aoe", hero, hero)
+  local ent_invis = CreateItem("item_ent_invis", hero, hero)
 
-  hero:AddItem(treant_hand_1)
-  hero:AddItem(treant_hand_2)
-  hero:AddItem(treant_blink)
+  hero:AddItem(ent_hand_1)
+  hero:AddItem(ent_hand_2)
+  hero:AddItem(ent_blink)
+  hero:AddItem(ent_aoe)
+  hero:AddItem(ent_invis)
 
 
   -- ==================== Make every abilities maxed ===================
@@ -120,12 +140,12 @@ end
 
 --======================== Initialize Infernal =========================
 function InitializeInfernal(hero)
-  -- body
+  InitializeBadHero(hero)
   hero:ClearInventory()
 
-  local infernal_obs
-  local infernal_altar
-  local infernal_market
+  -- local infernal_obs
+  -- local infernal_altar
+  -- local infernal_market
   
 end
 --[[
@@ -136,7 +156,18 @@ end
   The hero parameter is the hero entity that just spawned in
 ]]
 function GameMode:OnHeroInGame(hero)
-	InitializeBuilder(hero)
+  local team = hero:GetTeam()
+  print("my team : " .. team)
+  local team_name = GetTeamName(team)
+  print(team_name)
+  if team == 2 then
+    print("become ent")
+    InitializeBuilder(hero)
+  elseif team == 3 then
+    print("become infernal")
+    InitializeInfernal(hero)
+  end
+  -- if infernal get somethingesleseela
 end
 
 
@@ -149,11 +180,6 @@ end
 function GameMode:OnGameInProgress()
   DebugPrint("[BAREBONES] The game has officially begun")
 
-  Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
-    function()
-      DebugPrint("This function is called 30 seconds after the game begins, and every 30 seconds thereafter")
-      return 30.0 -- Rerun this timer every 30 game-time seconds 
-    end)
 end
 
 
@@ -167,6 +193,7 @@ function GameMode:InitGameMode()
 
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
   Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )
+  Convars:RegisterCommand( "greed_is_good", Dynamic_Wrap(GameMode, 'GreedIsGood'), "GreedIsGood", FCVAR_CHEAT )
 
   DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end
@@ -179,27 +206,39 @@ function GameMode:ExampleConsoleCommand()
     local playerID = cmdPlayer:GetPlayerID()
     if playerID ~= nil and playerID ~= -1 then
       -- Do something here for the player who called this command
-      PlayerResource:SetGold(playerID, 1000, true)
+      PlayerResource:SetGold(playerID, 1000)
     end
   end
 
   print( '*********************************************' )
 end
 
+function GameMode:GreedIsGood()
+  local cmdPlayer = Convars:GetCommandClient()
+  PrintTable(cmdPlayer)
+  local hero = cmdPlayer:GetAssignedHero()
+  PrintTable(hero)
+  if hero then
+    PlayerResource:SetGold(hero, 10000)
+    PlayerResource:SetLumber(hero, 10000)
+  end
+end
+
+
 --========================GAME RULES=========================
---50 GOLD, 100 WOOD; GET GOLD AND WOOD PER 5 SECONDS + RESOURCE STORAGE; THIS IS FOR ENT
+--50 GOLD, 100 WOOD; GET GOLD AND WOOD PER 5 SECONDS + RESOURCE STORAGE; THIS IS FOR ent
 --****; THIS IS FOR INFERNAL
 --100 MAX FOOD
 --RESOURCE STORE 4 WOOD + 2 GOLD, BIG RESOURCE STORAGE 6 WOOD + 8 GOLD, GREAT RESOURCE STORAGE 10 GOLD + 10 WOOD
 --WISP 5 WOOD /10 SECONDS
 --GAME LAST 45 MINS
---IF ENT ALL DIED, INFERNAL WINS. IF GAME TIMER IS UP ENT WINS.
+--IF ent ALL DIED, INFERNAL WINS. IF GAME TIMER IS UP ent WINS.
 --INFERNAL CANNOT DIE AND WILL ALWAYS REINCARNATE.
 --========================BUILDINGS==========================
 --(BASIC+ADVANCED) BASIC TREE 0 GOLD, 0 WOOD 5 SEC CONSTRUCTION, BIG TREE, GIANT TREE (MIGHT NOT NEEDED)
 --(BASIC+ADVANCED) ARMORED TREE 20 WOOD 5 SEC CONSTRUCTION (MIGHT NOT NEEDED)
 --RESOUCE STORAGE 20 GOLD, 40 WOOD; BIG RESOURCE STORAGE 60 GOLD, 100 WOOD; GREAT RESOURCE STORAGE 100 GOLD, 120 WOOD 15 SEC CONSTRUCTION
---(ADVANCED) SENTRY TOWER 20 GOLD, 20 WOOD 15 SEC CONSTRUCTION
+--(ADVANCED) SentRY TOWER 20 GOLD, 20 WOOD 15 SEC CONSTRUCTION
 --AURA TOWER 40 GOLD, 60 WOOD 15 SEC CONSTRUCTION
 --INVISIBLE TREE 30 GOLD, 50 WOOD 15 SEC CONSTRUCTION
 --TREE OF LIFE 100 GOLD, 200 WOOD, 60 SEC CONSTRUCTION
@@ -207,8 +246,8 @@ end
 --(ADVANCED) CRYSTAL BALL DETECTOR 100 GOLD, 150 WOOD 20 SEC CONSTRUCTION
 --NOOB INFERNAL KILLER 500 GOLD , 650 WOOD 30 SEC CONSTRUCTION; NICE INFERNAL KILLER 750 GOLD, 900 WOOD; GOOD INFERNAL KILLER 2000 GOLD, 1500 WOOD; CRAZY INFERNAL KILLER 4500 GOLD, 3000 WOOD; INSANE INFERNAL KILLER 6500 GOLD, 5000 WOOD
 --(ADVANCED) TREE BARRACK 100 GOLD , 200 WOOD 30 SEC CONSTRUCTION, TREE BARACK UPGRADED 100 GOLD, 200 WOOD 30 SEC CONSTRUCTION
---(ADVANCED) UPGRADE CENTER 100 GOLD , 100 WOOD, 30 SEC CONSTRUCTION
---(ADVANCED) TUNNEL ENTRANCE 200 GOLD , 250 WOOD 5 SEC CONSTRUCTION
+--(ADVANCED) UPGRADE CentER 100 GOLD , 100 WOOD, 30 SEC CONSTRUCTION
+--(ADVANCED) TUNNEL entRANCE 200 GOLD , 250 WOOD 5 SEC CONSTRUCTION
 --========================UNITS==============================
 --WISP 60 GOLD, 10 SEC SPAWN
 --ADVANCED BUILDING 60 GOLD, 60 WOOD, 15 SEC SPAWN

@@ -5,16 +5,17 @@
     "override_hero"     "npc_dota_hero_wisp"
     "Model"             "models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl"
     "SoundSet"          "0" 
+    "DisableWearables"         "1"
     "UnitLabel"                 "builder"
     "AbilityLayout"             "1"
-    "Ability1"          "antimage_blink" 
-    "Ability2"          "build_gold_mine_1" 
-    "Ability3"          "barebones_empty3" 
-    "Ability4"          "barebones_empty4"
-    "Ability5"          "barebones_empty5"
-    "Ability6"          "barebones_empty6"
-    "Ability7"          ""
-    "Ability8"          ""
+    "Ability1"          "build_resource_storage_1" 
+    "Ability2"          "build_tree_of_life" 
+    "Ability3"          "build_basic_tree"
+    "Ability4"          "build_armored_tree"
+    "Ability5"          "build_invisible_tree"
+    "Ability6"          "build_sentry_tower"
+    "Ability7"          "build_noob_infernal_killer"
+    "Ability8"          "build_tree_aura"
     "Ability9"          ""
     "Ability10"         ""
     "Ability11"         ""
@@ -27,9 +28,10 @@
     "ArmorPhysical"       "0"                 // Physical protection.
     "MagicalResistance"       "0"                 // Magical protection (percentage).
 
-    "AttackCapabilities"    "DOTA_UNIT_CAP_NO_ATTACK"
-    "AttackDamageMin"     "1"                   // Damage range min.
-    "AttackDamageMax"     "1"                   // Damage range max.
+    "AttackCapabilities"    "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackRange"           "90"
+    "AttackDamageMin"     "10000"                   // Damage range min.
+    "AttackDamageMax"     "10000"                   // Damage range max.
 
     //"AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
     "AttributeBaseStrength"   "0"                   // Base strength
@@ -55,7 +57,71 @@
     "StatusMana"        "400"                   // Base mana.
     "StatusManaRegen"     "100.0"                 // Mana regeneration rate.
 
-    "VisionDaytimeRange"    "1800"                  // Range of vision at night time.
-    "VisionNighttimeRange"    "1800"                  // Range of vision at night time.
+    "VisionDaytimeRange"    "900"                  // Range of vision at night time.
+    "VisionNighttimeRange"    "900"                  // Range of vision at night time.
   }
 }
+
+//Picking phase for infernal will use warlock (30 secs)
+"npc_dota_hero_warlock"
+  {
+    "override_hero"     "npc_dota_hero_warlock"
+    "SoundSet"          "0" 
+    "DisableWearables"         "1"
+    "UnitLabel"                 "infernal"
+    "AbilityLayout"             "1"
+    "Ability1"          "pick_str_infernal" 
+    "Ability2"          "pick_agi_infernal" 
+    "Ability3"          "pick_int_infernal"
+    "Ability4"          ""
+    "Ability5"          ""
+    "Ability6"          ""
+    "Ability7"          ""
+    "Ability8"          ""
+    "Ability9"          ""
+    "Ability10"         ""
+    "Ability11"         ""
+    "Ability12"         ""
+    "Ability13"         ""
+    "Ability14"         ""
+    "Ability15"         ""
+    "Ability16"         ""
+
+    "ArmorPhysical"       "0"                 // Physical protection.
+    "MagicalResistance"       "0"                 // Magical protection (percentage).
+
+    "AttackCapabilities"    "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackRange"           "90"
+    "AttackDamageMin"     "10000"                   // Damage range min.
+    "AttackDamageMax"     "10000"                   // Damage range max.
+
+    //"AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
+    "AttributeBaseStrength"   "0"                   // Base strength
+    "AttributeStrengthGain"   "0"                   // Strength bonus per level.
+    "AttributeBaseIntelligence" "0"                   // Base intelligence
+    "AttributeIntelligenceGain" "0"                   // Intelligence bonus per level.
+    "AttributeBaseAgility"    "0"                   // Base agility
+    "AttributeAgilityGain"    "0"                   // Agility bonus per level.
+
+    "BountyXP"          "0"                 // Experience earn.
+    "BountyGoldMin"       "0"                   // Gold earned min.
+    "BountyGoldMax"       "0"                   // Gold earned max.
+
+    //"BoundsHullName"      "DOTA_HULL_SIZE_HERO"
+    //"RingRadius"        "70"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+    "MovementSpeed"              "0"
+
+    "StatusHealth"        "1000"                 // Base health.
+    "StatusHealthRegen"     "0.0"                 // Health regeneration rate.
+    "StatusMana"        "400"                   // Base mana.
+    "StatusManaRegen"     "100.0"                 // Mana regeneration rate.
+
+    "VisionDaytimeRange"    "900"                  // Range of vision at night time.
+    "VisionNighttimeRange"    "900"                  // Range of vision at night time.
+  }
+
+//"models/items/warlock/golem/ti_8_warlock_darkness_apostate_golem/ti_8_warlock_darkness_apostate_golem.vmdl" golem intelligence
+//"models/items/warlock/golem/grimoires_pitlord_ultimate/grimoires_pitlord_ultimate.vmdl" golem agi
+//"models/items/warlock/golem/hellsworn_golem/hellsworn_golem.vmdl" golem strength

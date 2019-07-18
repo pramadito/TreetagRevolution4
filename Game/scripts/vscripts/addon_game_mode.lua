@@ -26,26 +26,52 @@ function Precache( context )
 
   -- Entire items can be precached by name
   -- Abilities can also be precached in this way despite the name
-  PrecacheItemByNameSync("item_treant_hand_1", context)
-  PrecacheItemByNameSync("item_treant_hand_2", context)
-  PrecacheItemByNameSync("item_treant_blink", context)
+  PrecacheItemByNameSync("item_ent_hand_1", context)
+  PrecacheItemByNameSync("item_ent_hand_2", context)
+  PrecacheItemByNameSync("item_ent_blink", context)
+  PrecacheItemByNameSync("item_ent_invis", context)
+  PrecacheItemByNameSync("item_ent_destroy_aoe", context)
+
 
 
   -- Entire heroes (sound effects/voice/models/particles) can be precached with PrecacheUnitByNameSync
   -- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
   PrecacheUnitByNameSync("npc_dota_hero_wisp", context)
-  PrecacheUnitByNameSync("gold_mine_1", context)
+  PrecacheUnitByNameSync("npc_dota_hero_warlock", context)
+  PrecacheUnitByNameSync("resource_storage_1", context)
+  PrecacheUnitByNameSync("resource_storage_2", context)
+  PrecacheUnitByNameSync("resource_storage_3", context)
+  PrecacheUnitByNameSync("sentry_tower", context)
+  PrecacheUnitByNameSync("basic_tree", context)
+  PrecacheUnitByNameSync("armored_tree", context)
+  PrecacheUnitByNameSync("invisible_tree", context)
+  PrecacheUnitByNameSync("tree_of_life", context)
+  
 end
 
 -- Create the game mode when we activate
 function Activate()
   GameRules.GameMode = GameMode()
   GameRules.GameMode:InitGameMode()
-  GameRules.max_food = 100
+  GameRules.maxFood = 100
   GameRules.gold = {}
   GameRules.lumber = {}
   GameRules.goldGained = {}
   GameRules.lumberGained = {}
   GameRules.goldGiven = {}
   GameRules.lumberGiven = {}
+  GameRules.InfernalWin = false
+  GameRules.heroes = {}
+  GameRules.shops = {}
+  GameRules.players = {}
+  GameRules.firstHero = true
+  GameRules.stunHeroes = true
+  GameRules.InfernalSpawned = false
+  GameRules.dcedChoosers = {}
+  --GameRules.InfernalTimer = 30
+  --GameRules.shops = Entities:FindAllByClassname("trigger_shop")
+  --GameRules.playersColors = {{0, 102, 255},{0, 204, 255},{153, 0, 204},{225,0,255},{255, 255, 0},{255, 153, 51},{51, 204, 51},{0, 105, 0},{128, 0, 0},{176, 0, 0},{60,20,74}}
+  GameRules.startTime = 0
+  GameRules.colorCounter = 1
+  GameRules.playerCount = 0
 end

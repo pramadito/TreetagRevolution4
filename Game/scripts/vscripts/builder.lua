@@ -63,8 +63,9 @@ function Build( event )
         BuildingHelper:print("Cancelled construction of " .. building_name)
 
         -- Refund resources for this cancelled work
-        if work.refund then
-            hero:ModifyGold(gold_cost, false, 0)
+        if work.refund and work.refund == true and not work.repair then
+            PlayerResource:ModifyGold(hero,gold_cost,true)
+            PlayerResource:ModifyLumber(hero,lumber_cost,true)
         end
     end)
 
@@ -101,6 +102,17 @@ function Build( event )
 
         -- Remove invulnerability on npc_dota_building baseclass
         unit:RemoveModifierByName("modifier_invulnerable")
+        -- for i=0, unit:GetAbilityCount()-1 do
+        --     local ability = unit:GetAbilityByIndex(i)
+        --     if ability then
+        --         local constructionStartModifiers = GetAbilityKV(ability:GetAbilityName(), "ConstructionStartModifiers")
+        --         if constructionStartModifiers then
+        --             for k,modifier in pairs(constructionStartModifiers) do
+        --                 ability:ApplyDataDrivenModifier(unit, unit, modifier, {})
+        --             end
+        --         end
+        --     end
+        -- end
     end)
 
     -- A building finished construction
@@ -132,15 +144,21 @@ end
 
 -- Called when the Cancel ability-item is used
 function CancelBuilding( keys )
+    local caster = event.caster
+    local ability = event.ability
+    local ability_name = ability:GetAbilityName()
     local building = keys.unit
     local hero = building:GetOwner()
     local playerID = building:GetPlayerOwnerID()
+    local gold_cost = ability:GetSpecialValueFor("gold_cost")
+    local lumber_cost = ability:GetSpecialValueFor("lumber_cost")
 
     BuildingHelper:print("CancelBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
 
     -- Refund here
     if building.gold_cost then
-        hero:ModifyGold(building.gold_cost, false, 0)
+        PlayerResource:ModifyGold(hero,gold_cost,true)
+        PlayerResource:ModifyLumber(hero,lumber_cost,true)
     end
 
     -- Eject builder
