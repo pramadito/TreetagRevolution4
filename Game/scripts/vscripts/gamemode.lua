@@ -55,7 +55,6 @@ end
 function GameMode:OnAllPlayersLoaded()
   print("[BAREBONES] All Players have loaded into the game")
   selectHero()
-
 end
 
 function selectHero()
@@ -67,6 +66,16 @@ function selectHero()
   end
   print("all players ID : ")
   PrintTable(allPlayersIDs)
+  local infernalID
+  for _,pID in pairs(allPlayersIDs) do
+    if PlayerResource:GetTeam(pID) == 3 then
+      print("i am infernal")
+      PlayerResource:SetSelectedHero("npc_dota_hero_warlock")
+    else
+      print("i am ent")
+    end
+  end
+  print("select hero done")
 end
 
 
