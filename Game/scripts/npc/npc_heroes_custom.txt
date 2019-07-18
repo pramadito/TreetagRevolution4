@@ -60,14 +60,13 @@
     "VisionDaytimeRange"    "900"                  // Range of vision at night time.
     "VisionNighttimeRange"    "900"                  // Range of vision at night time.
   }
-}
 
-//Picking phase for infernal will use warlock (30 secs)
-"npc_dota_hero_warlock"
+  //Picking phase for infernal will use warlock (30 secs)
+  "npc_dota_hero_warlock"
   {
     "override_hero"     "npc_dota_hero_warlock"
+    "ModelRotation"             "90"
     "SoundSet"          "0" 
-    "DisableWearables"         "1"
     "UnitLabel"                 "infernal"
     "AbilityLayout"             "1"
     "Ability1"          "pick_str_infernal" 
@@ -121,6 +120,9 @@
     "VisionDaytimeRange"    "900"                  // Range of vision at night time.
     "VisionNighttimeRange"    "900"                  // Range of vision at night time.
   }
+}
+
+
 
 //"models/items/warlock/golem/ti_8_warlock_darkness_apostate_golem/ti_8_warlock_darkness_apostate_golem.vmdl" golem intelligence
 //"models/items/warlock/golem/grimoires_pitlord_ultimate/grimoires_pitlord_ultimate.vmdl" golem agi

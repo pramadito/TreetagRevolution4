@@ -152,7 +152,7 @@ function StartBuildingHelper( params )
         var entities = Entities.GetAllEntitiesByClassname('npc_dota_building')
         var hero_entities = Entities.GetAllHeroEntities()
         var creature_entities = Entities.GetAllEntitiesByClassname('npc_dota_creature')
-        var dummy_entities = Entities.GetAllEntitiesByName('npc_dota_base')
+        var dummy_entities = Entities.FindAllEntitiesByName('npc_dota_base_dummy')
         var building_entities = Entities.GetAllBuildingEntities()
         entities = entities.concat(hero_entities)
         entities = entities.concat(building_entities)
@@ -179,7 +179,7 @@ function StartBuildingHelper( params )
             else
             {
                 // Put tree dummies on a separate table to skip trees
-                if (Entities.GetUnitName(entities[i]) == 'npc_dota_units_base')
+                if (Entities.GetUnitName(entities[i]) == 'npc_dota_base_dummy')
                 {
                     if (HasModifier(entities[i], "modifier_tree_cut"))
                         cutTrees[entPos] = entities[i]

@@ -54,10 +54,13 @@ end
 ]]
 function GameMode:OnAllPlayersLoaded()
   print("[BAREBONES] All Players have loaded into the game")
-  selectHero()
+    Timers:CreateTimer(1, function()
+    SelectHeroes()
+    GameRules:FinishCustomGameSetup()
+  end)
 end
 
-function selectHero()
+function SelectHeroes()
   allPlayersIDs = {}
   for pID=0, DOTA_MAX_TEAM_PLAYERS do
     if PlayerResource:IsValidPlayerID(pID) then
@@ -70,9 +73,10 @@ function selectHero()
   for _,pID in pairs(allPlayersIDs) do
     if PlayerResource:GetTeam(pID) == 3 then
       print("i am infernal")
-      PlayerResource:SetSelectedHero("npc_dota_hero_warlock")
+      PlayerResource:SetSelectedHero(pID,"npc_dota_hero_warlock")
     else
       print("i am ent")
+      PlayerResource:SetSelectedHero(pID,"npc_dota_hero_wisp")
     end
   end
   print("select hero done")

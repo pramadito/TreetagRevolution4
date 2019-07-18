@@ -15,8 +15,9 @@ end
 function GameMode:OnGameRulesStateChange(keys)
   DebugPrint("[BAREBONES] GameRules State Changed")
   DebugPrintTable(keys)
-
   local newState = GameRules:State_Get()
+  -- if newState == DOTA_GAMERULES_STATE_STRATEGY_TIME then
+    
 end
 
 -- An NPC has spawned somewhere in game.  This includes heroes

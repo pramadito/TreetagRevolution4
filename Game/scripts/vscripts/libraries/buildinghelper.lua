@@ -266,7 +266,7 @@ end
 
 function BuildingHelper:OnTreeCut(keys)
     local treePos = Vector(keys.tree_x, keys.tree_y, 0)
-    -- print("This is Tree Pos", treePos)
+    --print("This is Tree Pos" .. keys.tree_x .. ' ' .. keys.tree_y)
     local tree -- Figure out which tree was cut
     for _,t in pairs(BuildingHelper.AllTrees) do
         local pos = t:GetAbsOrigin()
@@ -324,6 +324,7 @@ function BuildingHelper:RegrowTreesAOE(keys)
             local pos = tree:GetAbsOrigin()
             local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
             if (inside <= (radius^2)) then
+                BuildingHelper:print("Regrowing trees pos x : " .. pos.x .. ", pos y : " .. pos.y)
                 BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
                 UTIL_Remove(tree.chopped_dummy)
             end
