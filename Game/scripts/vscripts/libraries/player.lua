@@ -31,8 +31,8 @@ end
 
 function CDOTA_PlayerResource:ModifyGold(hero,gold,noGain)
     if GameRules.test then
-    PlayerResource:SetGold(hero, 1000000)
-    return
+      PlayerResource:SetGold(hero, 1000000)
+      return
     end
     noGain = noGain or false
     local pID = hero:GetPlayerOwnerID()
@@ -59,8 +59,8 @@ end
 
 function CDOTA_PlayerResource:ModifyLumber(hero,lumber,noGain)
     if GameRules.test then
-    PlayerResource:SetLumber(hero,1000000)
-    return
+      PlayerResource:SetLumber(hero,1000000)
+      return
     end
     noGain = noGain or false
     local pID = hero:GetPlayerOwnerID()

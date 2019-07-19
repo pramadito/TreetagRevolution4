@@ -47,6 +47,8 @@
 		"DOTA_Tooltip_Ability_build_tree_aura"				"Build Tree Aura"
 
 		// ********************* ERRORS ********************
-		"error_unit_nearby"	"There is units nearby"
+		"error_unit_nearby"			"There is units nearby"
+		"error_not_enough_gold" 	"Not enough gold"
+		"error_not_enough_lumber"	"Not enough lumber"
 	}
 }

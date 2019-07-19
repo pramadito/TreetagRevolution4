@@ -22,6 +22,7 @@ var overlayParticles;
 var rangeOverlay;
 var rangeOverlayActive;
 var builderIndex;
+var testPos;
 var entityGrid = [];
 var tree_entities = [];
 var distance_to_gold_mine;
@@ -152,7 +153,7 @@ function StartBuildingHelper( params )
         var entities = Entities.GetAllEntitiesByClassname('npc_dota_building')
         var hero_entities = Entities.GetAllHeroEntities()
         var creature_entities = Entities.GetAllEntitiesByClassname('npc_dota_creature')
-        var dummy_entities = Entities.FindAllEntitiesByName('npc_dota_base_dummy')
+        var dummy_entities = Entities.GetAllEntitiesByName('npc_dota_base')
         var building_entities = Entities.GetAllBuildingEntities()
         entities = entities.concat(hero_entities)
         entities = entities.concat(building_entities)
@@ -168,7 +169,8 @@ function StartBuildingHelper( params )
             //$.Msg("[BH.JS] " + !Entities.IsAlive(entities[i]) + " " + Entities.IsOutOfGame(entities[i]) + " " + !HasModifier(entities[i], "modifier_building"))
             //$.Msg(!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building"))
             if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
-            var entPos = Entities.GetAbsOrigin( entities[i] )
+            var entPos = Entities.GetAbsOrigin(entities[i])            
+            testPos = entPos
             var squares = GetConstructionSize(entities[i])
             
             if (squares > 0)
@@ -183,6 +185,7 @@ function StartBuildingHelper( params )
                 {
                     if (HasModifier(entities[i], "modifier_tree_cut"))
                         cutTrees[entPos] = entities[i]
+                        //$.Msg(entPos)
                 }
                 // Block 2x2 squares if its an enemy unit
                 else if (Entities.GetTeamNumber(entities[i]) != Entities.GetTeamNumber(builderIndex) && !HasModifier(entities[i], "modifier_out_of_world"))
@@ -224,6 +227,12 @@ function StartBuildingHelper( params )
                 {
                     var treePos = Entities.GetAbsOrigin(tree_entities[i])
                     // Block the grid if the tree isn't chopped
+                    // if ((testPos[0] == treePos [0])&&(testPos[1] == treePos[1]))
+                    //     {
+                    //     $.Msg("This is tree Pos : " + treePos)
+                    //     $.Msg("This is test Pos : " + testPos)
+                    //     }
+
                     if (cutTrees[treePos] === undefined)
                         {
                         BlockGridSquares(treePos, 2, "TREE")

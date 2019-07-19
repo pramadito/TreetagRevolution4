@@ -245,6 +245,7 @@ function BuildingHelper:OnEntityKilled(keys)
         local pos = t:GetAbsOrigin()
         if pos.x == x and pos.y == y then
             tree = t
+            --treePos.z = pos.z
             break
         end
     end
@@ -272,6 +273,10 @@ function BuildingHelper:OnTreeCut(keys)
         local pos = t:GetAbsOrigin()
         if pos.x == keys.tree_x and pos.y == keys.tree_y then
             tree = t
+            --treePos.z = pos.z
+            local tstring = t:GetClassname()
+            BuildingHelper:print("Tree Classname : "..tstring)
+            BuildingHelper:print("Tree pos x: "..pos.x..", pos y: "..pos.y..", pos z: "..pos.z)
             break
         end
     end
@@ -285,6 +290,7 @@ function BuildingHelper:OnTreeCut(keys)
     end
 
     -- Create a dummy for clients to be able to detect trees standing and block their grid
+    BuildingHelper:print("Creating base at pos x : "..treePos.x.. ", pos y: "..treePos.y..", pos z: "..treePos.z)
     tree.chopped_dummy = CreateUnitByName("npc_dota_base_dummy", treePos, false, nil, nil, 0)
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_tree_cut",{})
     tree.chopped_dummy:AddNewModifier(tree.chopped_dummy,nil,"modifier_building",{})
@@ -308,6 +314,7 @@ end
 
 function BuildingHelper:RegrowTreesAOE(keys)
     local caster = keys.caster
+    local ability = keys.ability
     local team = caster:GetTeam()
     local target_point = keys.target_points[1]
     local radius = keys.Radius
@@ -318,13 +325,15 @@ function BuildingHelper:RegrowTreesAOE(keys)
 
     if #units > 0 then
         SendErrorMessage(playerID, "#error_unit_nearby")
+        ability:EndCooldown()
         return
     else
         for _,tree in pairs(BuildingHelper.AllTrees) do
             local pos = tree:GetAbsOrigin()
             local inside = ((pos.x - point_x)^2) + ((pos.y - point_y)^2)
             if (inside <= (radius^2)) then
-                BuildingHelper:print("Regrowing trees pos x : " .. pos.x .. ", pos y : " .. pos.y)
+                BuildingHelper:print("Regrowing trees pos x : " .. pos.x .. ", pos y : " .. pos.y .. ", pos z : " .. pos.z)
+                BuildingHelper:print("Dummy Classname : "..tree.chopped_dummy:GetClassname())
                 BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
                 UTIL_Remove(tree.chopped_dummy)
             end
