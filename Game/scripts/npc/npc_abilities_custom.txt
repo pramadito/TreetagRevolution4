@@ -52,14 +52,14 @@
     "AbilityCooldown"         "1"
     "AbilityCastRange"        "75"
 
-    "OnSpellStart"
-    {
-        "RunScript"
-        {
-            "ScriptFile"    "item_treant_hand.lua"
-            "Function"      "DestroyTree"
-        }
-    }
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/custom_abilities.lua"
+				"Function"		"DestroyTree"
+			}
+		}
   }
   "destroy_tree_aoe_infernal"
   {
@@ -81,14 +81,16 @@
     "AbilityCooldown"         "1"
     "AbilityCastRange"        "75"
 
-    "OnSpellStart"
-    {
-        "RunScript"
-        {
-            "ScriptFile"    "item_treant_hand.lua"
-            "Function"      "DestroyTree"
-        }
-    }
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"		"abilities/custom_abilities.lua"
+				"Function"			"DestroyTreesAoE"
+				"Radius"			"%affect_aoe"
+				"Target"			"POINT"
+			}
+		}
   }
   "shockwave_infernal_str"
   {
@@ -673,6 +675,9 @@
     }
     "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_2"
   }
+
+  //Infernal killer
+  //mana burn passive
 
   // Warlock picking phase (abilities)
   "pick_str_infernal"

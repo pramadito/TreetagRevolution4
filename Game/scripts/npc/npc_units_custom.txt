@@ -604,6 +604,7 @@
         "Model"                     "models\props_structures\radiant_statue001.vmdl"
         "precache"{
             "model"                     "models\props_structures\radiant_statue001.vmdl"
+            "particle"                  ""//Tower particle (last upgrade = dire tower)
         }
         "ModelScale"                "0.5"
         "ModelRotation"             "0"
