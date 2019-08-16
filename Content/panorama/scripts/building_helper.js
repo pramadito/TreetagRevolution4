@@ -22,6 +22,7 @@ var overlayParticles;
 var rangeOverlay;
 var rangeOverlayActive;
 var builderIndex;
+var testPos;
 var entityGrid = [];
 var tree_entities = [];
 var distance_to_gold_mine;
@@ -168,7 +169,8 @@ function StartBuildingHelper( params )
             //$.Msg("[BH.JS] " + !Entities.IsAlive(entities[i]) + " " + Entities.IsOutOfGame(entities[i]) + " " + !HasModifier(entities[i], "modifier_building"))
             //$.Msg(!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building"))
             if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
-            var entPos = Entities.GetAbsOrigin( entities[i] )
+            var entPos = Entities.GetAbsOrigin(entities[i])            
+            testPos = entPos
             var squares = GetConstructionSize(entities[i])
             
             if (squares > 0)
@@ -179,10 +181,11 @@ function StartBuildingHelper( params )
             else
             {
                 // Put tree dummies on a separate table to skip trees
-                if (Entities.GetUnitName(entities[i]) == 'npc_dota_units_base')
+                if (Entities.GetUnitName(entities[i]) == 'npc_dota_base_dummy')
                 {
                     if (HasModifier(entities[i], "modifier_tree_cut"))
                         cutTrees[entPos] = entities[i]
+                        //$.Msg(entPos)
                 }
                 // Block 2x2 squares if its an enemy unit
                 else if (Entities.GetTeamNumber(entities[i]) != Entities.GetTeamNumber(builderIndex) && !HasModifier(entities[i], "modifier_out_of_world"))
@@ -224,6 +227,12 @@ function StartBuildingHelper( params )
                 {
                     var treePos = Entities.GetAbsOrigin(tree_entities[i])
                     // Block the grid if the tree isn't chopped
+                    // if ((testPos[0] == treePos [0])&&(testPos[1] == treePos[1]))
+                    //     {
+                    //     $.Msg("This is tree Pos : " + treePos)
+                    //     $.Msg("This is test Pos : " + testPos)
+                    //     }
+
                     if (cutTrees[treePos] === undefined)
                         {
                         BlockGridSquares(treePos, 2, "TREE")

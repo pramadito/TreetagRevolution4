@@ -57,7 +57,7 @@ air_dummies = {}
 function RevealAreaSentryTower(event)
 	local caster = event.caster
 	Timers:CreateTimer({
-		endTime = 3,
+		endTime = 3, --Build Time
 		callback = function()
 		local hero = caster:GetOwner()
 		if not hero then
@@ -116,12 +116,20 @@ function HealthRegenTree(event)
 	local caster = event.caster
 	local team = caster:GetTeam()
 	local radius = event.Radius
+	local units = FindUnitsInRadius(team, caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
+	for _,unit in pairs(units) do
+		unit:SetHealth(unit:GetHealth() + 1)
+	end
 end
 
 function ManaRegenTree(event)
 	local caster = event.caster
 	local team = caster:GetTeam()
 	local radius = event.Radius
+	local units = FindUnitsInRadius(team, caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
+	for _,unit in pairs(units) do
+		unit:SetMana(unit:GetMana() + 1)
+	end
 end
 
 
@@ -131,6 +139,15 @@ end
 
 function SpawnUnit(event)
 
+end
+
+function IdleAnimation(event)
+	local caster = event.caster
+	Timers:CreateTimer(1, function()
+		caster:SetAngles(0, 270, 0)
+		caster:StartGesture(ACT_DOTA_CAST_ABILITY_4)
+    return 1
+  	end)
 end
 
 --=========================================idk
@@ -222,26 +239,81 @@ function SendErrorMessage( pID, string )
 end
 
 
-function Infernal_Shockwave()
+
+
+function Infernal_Ward(event)
+	local caster = event.caster
+	local team = caster:GetTeam()
+	local radius = event.Radius
+	local point = event.target_points[1]
+	local duration = event.Duration
+	local units = FindUnitsInRadius(caster:GetTeamNumber(), point , nil, visionRadius , DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_ALL , DOTA_UNIT_TARGET_FLAG_NONE, 0 , false)
+	local timeElapsed = 0
 	--body
-	--use invoker meteor from infernal's hand(animating??) or magnus shockwave
 end
 
-function Infernal_Ward()
-	--body
+function DestroyTree_WhileWalking(event)
+	-- body
+	local caster = event.caster
+	local radius = event.Radius
+	local point = caster:GetAbsOrigin()
+	
+	GridNav:DestroyTreesAroundPoint(target_point, radius, false)
 end
 
+--CUSTOM INFERNAL ABILITIES
+--int infernal abilities
 function Infernal_PowerWard()
 	--body
+end
+
+function Infernal_ManaRegenAur()
+	--stuff
+end
+
+function Infernal_IceAge()
+	--stuff
+end
+
+--str infernal abilities
+
+function Infernal_Shockwave(event)
+	--body
+	--use invoker meteor from infernal's hand(animating??) or magnus shockwave
+	local caster = event.caster
+
+
 end
 
 function Infernal_Immolation()
 	--body
 end
 
-function DestroyTree_WhileWalking(event)
-	-- body
+function Infernal_MirrorImage()
+	--buffed
 end
 
+function Infernal_DemonicStrength()
+	--ultrabuffed
+end
 
+function Infernal_DamageAura()
+	--gigabuffed
+end
 
+--agi infernal abilities
+function Infernal_FingerofDeath()
+	--stuff
+end
+
+function Infernal_Root()
+	--rooted
+end
+
+function Infernal_FieryGhost()
+	--ghastly
+end
+
+function Infernal_AttackSpeedAura()
+	--speedy
+end

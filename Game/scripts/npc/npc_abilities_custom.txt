@@ -52,6 +52,66 @@
     "AbilityCooldown"         "1"
     "AbilityCastRange"        "75"
 
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/custom_abilities.lua"
+				"Function"		"DestroyTree"
+			}
+		}
+  }
+  "destroy_tree_aoe_infernal"
+  {
+    // General  
+    // ----------------------------------------------------------------------------------------
+    "BaseClass"              "ability_datadriven"
+    "AbilityTextureName"     "spellicon"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_CUSTOM"
+    "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
+    "AnimationPlaybackRate"  "1"
+    "AnimationIgnoresModelScale" "1"
+
+    // Stats
+    //----------------------------------------------------------------------------------------
+    "MaxLevel"                "1"
+    "AbilityManaCost"         "0"
+    "AbilityCooldown"         "1"
+    "AbilityCastRange"        "75"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"		"abilities/custom_abilities.lua"
+				"Function"			"DestroyTreesAoE"
+				"Radius"			"%affect_aoe"
+				"Target"			"POINT"
+			}
+		}
+  }
+  "shockwave_infernal_str"
+  {
+    // General  
+    // ----------------------------------------------------------------------------------------
+    "BaseClass"              "ability_datadriven"
+    "AbilityTextureName"     "spellicon"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_CUSTOM"
+    "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
+    "AnimationPlaybackRate"  "1"
+    "AnimationIgnoresModelScale" "1"
+
+    // Stats
+    //----------------------------------------------------------------------------------------
+    "MaxLevel"                "1"
+    "AbilityManaCost"         "0"
+    "AbilityCooldown"         "1"
+    "AbilityCastRange"        "75"
+
     "OnSpellStart"
     {
         "RunScript"
@@ -61,25 +121,92 @@
         }
     }
   }
-  "destroy_tree_aoe_infernal"
+  "immolation_infernal_str"
   {
+    // General  
+    // ----------------------------------------------------------------------------------------
+    "BaseClass"              "ability_datadriven"
+    "AbilityTextureName"     "spellicon"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_CUSTOM"
+    "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
+    "AnimationPlaybackRate"  "1"
+    "AnimationIgnoresModelScale" "1"
 
+    // Stats
+    //----------------------------------------------------------------------------------------
+    "MaxLevel"                "1"
+    "AbilityManaCost"         "0"
+    "AbilityCooldown"         "1"
+    "AbilityCastRange"        "75"
+
+    "OnSpellStart"
+    {
+        "RunScript"
+        {
+            "ScriptFile"    "item_treant_hand.lua"
+            "Function"      "DestroyTree"
+        }
+    }
   }
-  "shockwave_infernal"
+  "damage_aura_infernal_str"
   {
+    // General  
+    // ----------------------------------------------------------------------------------------
+    "BaseClass"              "ability_datadriven"
+    "AbilityTextureName"     "spellicon"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_CUSTOM"
+    "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
+    "AnimationPlaybackRate"  "1"
+    "AnimationIgnoresModelScale" "1"
 
+    // Stats
+    //----------------------------------------------------------------------------------------
+    "MaxLevel"                "1"
+    "AbilityManaCost"         "0"
+    "AbilityCooldown"         "1"
+    "AbilityCastRange"        "75"
+
+    "OnSpellStart"
+    {
+        "RunScript"
+        {
+            "ScriptFile"    "item_treant_hand.lua"
+            "Function"      "DestroyTree"
+        }
+    }
   }
-  "immolation_infernal"
+  "tornado_infernal_str"
   {
+    // General  
+    // ----------------------------------------------------------------------------------------
+    "BaseClass"              "ability_datadriven"
+    "AbilityTextureName"     "spellicon"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_TREE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_CUSTOM"
+    "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
+    "AnimationPlaybackRate"  "1"
+    "AnimationIgnoresModelScale" "1"
 
-  }
-  "damage_aura_infernal"
-  {
+    // Stats
+    //----------------------------------------------------------------------------------------
+    "MaxLevel"                "1"
+    "AbilityManaCost"         "0"
+    "AbilityCooldown"         "1"
+    "AbilityCastRange"        "75"
 
-  }
-  "tornado_infernal"
-  {
-
+    "OnSpellStart"
+    {
+        "RunScript"
+        {
+            "ScriptFile"    "item_treant_hand.lua"
+            "Function"      "DestroyTree"
+        }
+    }
   }
 
 
@@ -460,7 +587,16 @@
     "BaseClass"                 "ability_datadriven"
     "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityTextureName"        "sanctuary_icon"
+    "Radius"                    "350"
     "MaxLevel"                  "1"
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "abilities/custom_abilities.lua"
+        "Function"    "HealthRegenTree"
+      }
+    }
   }
 
   "mana_regen_tree_aura"
@@ -468,30 +604,148 @@
     "BaseClass"                 "ability_datadriven"
     "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityTextureName"        "sanctuary_icon"
+    "Radius"                    "350"
     "MaxLevel"                  "1"
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "abilities/custom_abilities.lua"
+        "Function"    "ManaRegenTree"
+      }
+    }
   }
 
 //Shrine 
   "healing_tree_aura"
   {
-    "BaseClass"                 "ability_datadriven"
-    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "BaseClass"                 "filler_ability"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityTextureName"        "sanctuary_icon"
-    "MaxLevel"                  "1"
+    "MaxLevel"            "1"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "300"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "hp_heal"       "90"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "mp_heal"       "50"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "hp_heal_growth"    "0"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "mp_heal_growth"    "0"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "hp_heal_pct"       "2"
+      }
+      "06"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "mp_heal_pct"       "2"
+      }
+      "07"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "5"
+      }
+      "08"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "radius"        "350"
+      }
+    }
+    "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_2"
   }
 
-// Warlock picking phase (abilities)
+  //Infernal killer
+  //mana burn passive
+
+  // Warlock picking phase (abilities)
   "pick_str_infernal"
   {
-
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "abilities/infernal_pick_phase.lua"
+        "Function"    "PickInfernalStr"
+      }
+    }
   }
+
   "pick_agi_infernal"
   {
-
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "abilities/infernal_pick_phase.lua"
+        "Function"    "PickInfernalAgi"
+      }
+    }
   }
   "pick_int_infernal"
   {
-    
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
+    "OnSpellStart"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "abilities/infernal_pick_phase.lua"
+        "Function"    "PickInfernalInt"
+      }
+    }
   }
-}
+  "idle_animation"
+  {
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+    "AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_4"
+    "AbilityTextureName"        "sanctuary_icon"
+    "MaxLevel"                  "1"
+    "OnToggleOn"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "abilities/custom_abilities.lua"
+        "Function"    "IdleAnimation"
+      }
+    }
+  }
+}//END
+
+
+
+
+
 

@@ -94,6 +94,7 @@ function Build( event )
         if unit.item_building_cancel then 
             unit:AddItem(unit.item_building_cancel)
             unit.gold_cost = gold_cost
+            unit.lumber_cost = lumber_cost
         end
 
         -- FindClearSpace for the builder
@@ -144,22 +145,17 @@ end
 
 -- Called when the Cancel ability-item is used
 function CancelBuilding( keys )
-    local caster = event.caster
-    local ability = event.ability
-    local ability_name = ability:GetAbilityName()
     local building = keys.unit
+    PrintTable(building)
+    print("gold : " ..building.gold_cost)
+    print("lumber : "..building.lumber_cost)
     local hero = building:GetOwner()
-    local playerID = building:GetPlayerOwnerID()
-    local gold_cost = ability:GetSpecialValueFor("gold_cost")
-    local lumber_cost = ability:GetSpecialValueFor("lumber_cost")
 
     BuildingHelper:print("CancelBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
 
     -- Refund here
-    if building.gold_cost then
-        PlayerResource:ModifyGold(hero,gold_cost,true)
-        PlayerResource:ModifyLumber(hero,lumber_cost,true)
-    end
+    PlayerResource:ModifyGold(hero,building.gold_cost,true)
+    PlayerResource:ModifyLumber(hero,building.lumber_cost,true)
 
     -- Eject builder
     local builder = building.builder_inside
@@ -167,7 +163,10 @@ function CancelBuilding( keys )
         BuildingHelper:ShowBuilder(builder)
     end
 
-    building:ForceKill(true) --This will call RemoveBuilding
+    building:ForceKill(true)
+    Timers:CreateTimer(5,function()
+        UTIL_Remove(building)    
+    end)
 end
 
 -- Requires notifications library from bmddota/barebones

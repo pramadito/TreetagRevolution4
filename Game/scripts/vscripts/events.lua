@@ -15,8 +15,12 @@ end
 function GameMode:OnGameRulesStateChange(keys)
   DebugPrint("[BAREBONES] GameRules State Changed")
   DebugPrintTable(keys)
-
   local newState = GameRules:State_Get()
+  if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+    GameMode:SetHeroSelection()
+  elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
+    self:PreStart()
+  end
 end
 
 -- An NPC has spawned somewhere in game.  This includes heroes
@@ -25,6 +29,10 @@ function GameMode:OnNPCSpawned(keys)
   DebugPrintTable(keys)
 
   local npc = EntIndexToHScript(keys.entindex)
+    if npc:IsRealHero() and npc.bFirstSpawned == nil then
+    npc.bFirstSpawned = true
+    GameMode:OnHeroInGame(npc)
+  end
 end
 
 -- An entity somewhere has been hurt.  This event fires very often with many units so don't do too many expensive
@@ -258,10 +266,18 @@ function GameMode:OnConnectFull(keys)
   
   local entIndex = keys.index+1
   -- The Player entity of the joining user
-  local ply = EntIndexToHScript(entIndex)
-  
+  local player = EntIndexToHScript(entIndex)
+  local userID = keys.userid
+  GameRules.userIds = GameRules.userIds or {}
   -- The Player ID of the joining player
-  local playerID = ply:GetPlayerID()
+  local playerID = player:GetPlayerID()
+  GameRules.userIds[userID] = playerID
+  GameMode:_CaptureGameMode()
+end
+
+function GameMode:OnAllPlayersLoaded()
+  DebugPrint("[TROLLNELVES2] All Players have loaded into the game")
+
 end
 
 -- This function is called whenever illusions are created and tells you which was/is the original entity

@@ -10,14 +10,14 @@ if GameRules.disconnectedHeroSelects == nil then
   GameRules.disconnectedHeroSelects = {}
 end
 
--- function CDOTA_PlayerResource:SetSelectedHero(playerID, heroName)
---     local player = PlayerResource:GetPlayer(playerID)
---   if player == nil then
---         GameRules.disconnectedHeroSelects[playerID] = heroName
---         return
---   end
---     player:SetSelectedHero(heroName)
--- end
+function CDOTA_PlayerResource:SetSelectedHero(playerID, heroName)
+    local player = PlayerResource:GetPlayer(playerID)
+  if player == nil then
+        GameRules.disconnectedHeroSelects[playerID] = heroName
+        return
+  end
+    player:SetSelectedHero(heroName)
+end
 
 function CDOTA_PlayerResource:SetGold(hero,gold)
     local playerID = hero:GetPlayerOwnerID()
@@ -31,8 +31,8 @@ end
 
 function CDOTA_PlayerResource:ModifyGold(hero,gold,noGain)
     if GameRules.test then
-    PlayerResource:SetGold(hero, 1000000)
-    return
+      PlayerResource:SetGold(hero, 1000000)
+      return
     end
     noGain = noGain or false
     local pID = hero:GetPlayerOwnerID()
@@ -59,8 +59,8 @@ end
 
 function CDOTA_PlayerResource:ModifyLumber(hero,lumber,noGain)
     if GameRules.test then
-    PlayerResource:SetLumber(hero,1000000)
-    return
+      PlayerResource:SetLumber(hero,1000000)
+      return
     end
     noGain = noGain or false
     local pID = hero:GetPlayerOwnerID()

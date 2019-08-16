@@ -183,7 +183,7 @@
 
         // Movement
         //----------------------------------------------------------------
-        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_FLY"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
         "MovementSpeed"             "300"       // Speed
         "MovementTurnRate"          "0.5"       // Turning rate.
         "HasAggressiveStance"       "0"         // Plays alternate idle/run animation when near enemies
@@ -206,8 +206,8 @@
         
         // Vision
         //----------------------------------------------------------------
-        "VisionDaytimeRange"        "900"       // Range of vision during day light.
-        "VisionNighttimeRange"      "900"       // Range of vision at night time.
+        "VisionDaytimeRange"        "575"       // Range of vision during day light.
+        "VisionNighttimeRange"      "575"       // Range of vision at night time.
         
         // Bots
         //----------------------------------------------------------------
@@ -306,21 +306,6 @@
     //----------------------------------------------------------------
     "VisionDaytimeRange"    "0"   // Range of vision during day light.
     "VisionNighttimeRange"    "0"   // Range of vision at night time.
-    }
-
-    "infernal_str"
-    {
-
-    }
-
-    "infernal_agi"
-    {
-
-    }
-
-    "infernal_int"
-    {
-        
     }
 
     "resource_storage_1"
@@ -577,9 +562,9 @@
         // Abilities
         //----------------------------------------------------------------
         "AbilityLayout"             "1"
-        "Ability1"                  "healing_water"
-        "Ability2"                  "mana_regeneration_aura"
-        "Ability3"                  "health_regeneration_aura"
+        "Ability1"                  "healing_tree_aura"
+        "Ability2"                  "mana_regen_tree_aura"
+        "Ability3"                  "health_regen_tree_aura"
         "Ability4"                  ""
         "Ability10"                 ""
         
@@ -619,6 +604,7 @@
         "Model"                     "models\props_structures\radiant_statue001.vmdl"
         "precache"{
             "model"                     "models\props_structures\radiant_statue001.vmdl"
+            "particle"                  ""//Tower particle (last upgrade = dire tower)
         }
         "ModelScale"                "0.5"
         "ModelRotation"             "0"
