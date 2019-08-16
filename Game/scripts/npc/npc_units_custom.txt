@@ -308,21 +308,6 @@
     "VisionNighttimeRange"    "0"   // Range of vision at night time.
     }
 
-    "infernal_str"
-    {
-
-    }
-
-    "infernal_agi"
-    {
-
-    }
-
-    "infernal_int"
-    {
-        
-    }
-
     "resource_storage_1"
     {
             // Visual
@@ -577,9 +562,9 @@
         // Abilities
         //----------------------------------------------------------------
         "AbilityLayout"             "1"
-        "Ability1"                  "healing_water"
-        "Ability2"                  "mana_regeneration_aura"
-        "Ability3"                  "health_regeneration_aura"
+        "Ability1"                  "healing_tree_aura"
+        "Ability2"                  "mana_regen_tree_aura"
+        "Ability3"                  "health_regen_tree_aura"
         "Ability4"                  ""
         "Ability10"                 ""
         

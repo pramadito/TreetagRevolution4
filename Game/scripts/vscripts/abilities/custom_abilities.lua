@@ -57,7 +57,7 @@ air_dummies = {}
 function RevealAreaSentryTower(event)
 	local caster = event.caster
 	Timers:CreateTimer({
-		endTime = 3,
+		endTime = 3, --Build Time
 		callback = function()
 		local hero = caster:GetOwner()
 		if not hero then
@@ -116,12 +116,20 @@ function HealthRegenTree(event)
 	local caster = event.caster
 	local team = caster:GetTeam()
 	local radius = event.Radius
+	local units = FindUnitsInRadius(team, caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
+	for _,unit in pairs(units) do
+		unit:SetHealth(unit:GetHealth() + 1)
+	end
 end
 
 function ManaRegenTree(event)
 	local caster = event.caster
 	local team = caster:GetTeam()
 	local radius = event.Radius
+	local units = FindUnitsInRadius(team, caster:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, 0, false)
+	for _,unit in pairs(units) do
+		unit:SetMana(unit:GetMana() + 1)
+	end
 end
 
 
@@ -131,6 +139,15 @@ end
 
 function SpawnUnit(event)
 
+end
+
+function IdleAnimation(event)
+	local caster = event.caster
+	Timers:CreateTimer(1, function()
+		caster:SetAngles(0, 270, 0)
+		caster:StartGesture(ACT_DOTA_CAST_ABILITY_4)
+    return 1
+  	end)
 end
 
 --=========================================idk

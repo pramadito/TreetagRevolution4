@@ -4,9 +4,6 @@
 	"Spectator"       								"Spectator Team"
 	"Neutrals"        								"Neutral Team"
 	"NoTeam"          								"No Team"
-
-	"DOTA_GoodGuys"   								"Ent"
-	"DOTA_BadGuys"    								"Infernal"
 	
 	"addonname"										"Tree Tag"
 	"Language"		"english"
@@ -15,8 +12,11 @@
         "locale" 					"en"
 		"addon_game_name"			"Tree Tag"
 		
+		"DOTA_GoodGuys"   								"Ent"
+		"DOTA_BadGuys"    								"Infernal"
+		
 		// ******************** HEROES ********************
-		"npc_dota_hero_wisp"        "Ent"
+		"npc_dota_hero_treant"        "Ent"
 
 		// ******************** UNITS ********************
 		"resource_storage_1"	"Resource Storage Small"
@@ -27,7 +27,8 @@
 		"armored_tree"			"Armored Tree"
 		"invisible_tree"		"Invisible Tree"
 		"tree_of_life"			"Tree of Life"
-
+		"tree_aura"				"Tree Aura"
+		"noob_infernal_killer"	"Noob Infernal Killer"
 
 		// ********************* ITEMS ********************
 		"DOTA_Tooltip_Ability_item_ent_blink"		"Blink Dagger"

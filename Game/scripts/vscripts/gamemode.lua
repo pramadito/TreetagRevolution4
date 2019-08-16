@@ -48,15 +48,21 @@ function GameMode:OnFirstPlayerLoaded()
   DebugPrint("[BAREBONES] First Player has loaded")
 end
 
---[[
-  This function is called once and only once after all players have loaded into the game, right as the hero selection time begins.
-  It can be used to initialize non-hero player state or adjust the hero selection (i.e. force random etc)
-]]
-function GameMode:OnAllPlayersLoaded()
-  print("[BAREBONES] All Players have loaded into the game")
+--For Later (This function start when players enter the team selection)
+function GameMode:GameSetup() --
     Timers:CreateTimer(1, function()
+    --GameRules:FinishCustomGameSetup()
+  end)
+end
+
+function GameMode:SetHeroSelection()
     SelectHeroes()
-    GameRules:FinishCustomGameSetup()
+end
+
+function GameMode:PreStart()
+  Timers:CreateTimer(1, function ()
+    GameRules.startTime = GameRules.startTime + 1
+    return 1
   end)
 end
 
@@ -72,11 +78,15 @@ function SelectHeroes()
   local infernalID
   for _,pID in pairs(allPlayersIDs) do
     if PlayerResource:GetTeam(pID) == 3 then
+      local team = PlayerResource:GetTeam(pID)
+      print("my team : " .. team)
       print("i am infernal")
       PlayerResource:SetSelectedHero(pID,"npc_dota_hero_warlock")
     else
+      local team = PlayerResource:GetTeam(pID)
+      print("my team : " .. team)
       print("i am ent")
-      PlayerResource:SetSelectedHero(pID,"npc_dota_hero_wisp")
+      PlayerResource:SetSelectedHero(pID,"npc_dota_hero_treant")
     end
   end
   print("select hero done")
@@ -84,23 +94,27 @@ end
 
 
 function InitializeHero(hero)
+  local playerID = hero:GetPlayerOwnerID()
   hero.food = 0
   hero.buildings = {} -- This keeps the name and quantity of each building
   hero.units = {}
   hero.goldperfivesecond = 2
   hero.lumberperfivesecond = 2
   hero.disabledBuildings = {}
+  hero.entID = playerID
   -- if GameRules.stunHeroes then
   --   hero:AddNewModifier(nil, nil, "modifier_stunned", { })
   --   table.insert(GameRules.heroes,hero)
   -- end
-  Timers:CreateTimer(5, function()
+  Timers:CreateTimer(function()
     if hero:IsNull() then
       return
     end
-    PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
-    PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
-    return 5
+    if GameRules.startTime%5 == 0 then
+      PlayerResource:ModifyGold(hero, hero.goldperfivesecond)
+      PlayerResource:ModifyLumber(hero, hero.lumberperfivesecond)
+    end
+    return 1
   end)
   PlayerResource:SetGold(hero,50)
   PlayerResource:SetLumber(hero,100) -- Secondary resource of the player
@@ -108,12 +122,15 @@ function InitializeHero(hero)
 end
 
 function InitializeBadHero(hero)
+  local playerID = hero:GetPlayerOwnerID()
   hero.food = 0
   hero.buildings = {} -- This keeps the name and quantity of each building
   hero.units = {}
-  hero.goldperfivesecond = 2
-  hero.lumberperfivesecond = 2
+  hero.goldperfivesecond = 0
+  hero.lumberperfivesecond = 0
   hero.disabledBuildings = {}
+  hero.infernalchoice = ""
+  hero.infernalID = playerID
 
   Timers:CreateTimer(5, function()
     if hero:IsNull() then
@@ -152,15 +169,31 @@ function InitializeBuilder(hero)
 end
 
 --======================== Initialize Infernal =========================
-function InitializeInfernal(hero)
+function InitializeWarlock(hero)
   InitializeBadHero(hero)
   hero:ClearInventory()
+  for i=0,15 do
+    local ability = hero:GetAbilityByIndex(i)
+    if ability then ability:SetLevel(ability:GetMaxLevel()) end
+    if i==3 then ability:ToggleAbility() end
+  end
+end
 
-  -- local infernal_obs
+function InitializeInfernal(hero)
+  if hero.infernalchoice == "infernal_int" then
+    PlayerResource:ReplaceHeroWith(hero.infernalID, "npc_dota_hero_pangolier", 190 , 0)
+  elseif hero.infernalchoice == "infernal_str" then
+    PlayerResource:ReplaceHeroWith(hero.infernalID, "npc_dota_hero_shadow_fiend", 190 , 0)
+  elseif hero.infernalchoice == "infernal_agi" then
+    PlayerResource:ReplaceHeroWith(hero.infernalID, "npc_dota_hero_wisp", 190 , 0)
+  end
+  --else random
+    hero:ClearInventory()
+  -- local infernal_obs = CreateItem(string item_name, hero, hero)
   -- local infernal_altar
   -- local infernal_market
-  
 end
+
 --[[
   This function is called once and only once for every player when they spawn into the game for the first time.  It is also called
   if the player's hero is replaced with a new hero for any reason.  This function is useful for initializing heroes, such as adding
@@ -177,10 +210,21 @@ function GameMode:OnHeroInGame(hero)
     print("become ent")
     InitializeBuilder(hero)
   elseif team == 3 then
-    print("become infernal")
-    InitializeInfernal(hero)
+    print("become warlock")
+    InitializeWarlock(hero)
   end
-  -- if infernal get somethingesleseela
+  --Infernal Picking Phase and then replace warlock with golem
+  Timers:CreateTimer({
+    endTime = 30, --Build Time
+    callback = function()
+    if not hero.infernalchoice then
+      print("ENT IS OCCUPYING THE FOREST")
+      return
+    end
+    InitializeInfernal(hero)
+    print("INFERNALS MAKE THEIR APPEARANCE")
+  end
+  })
 end
 
 
@@ -205,26 +249,11 @@ function GameMode:InitGameMode()
   GameMode:_InitGameMode()
 
   -- Commands can be registered for debugging purposes or as functions that can be called by the custom Scaleform UI
-  Convars:RegisterCommand( "command_example", Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'), "A console command example", FCVAR_CHEAT )
   Convars:RegisterCommand( "greed_is_good", Dynamic_Wrap(GameMode, 'GreedIsGood'), "GreedIsGood", FCVAR_CHEAT )
 
   DebugPrint('[BAREBONES] Done loading Barebones gamemode!\n\n')
 end
 
--- This is an example console command
-function GameMode:ExampleConsoleCommand()
-  print( '******* Example Console Command ***************' )
-  local cmdPlayer = Convars:GetCommandClient()
-  if cmdPlayer then
-    local playerID = cmdPlayer:GetPlayerID()
-    if playerID ~= nil and playerID ~= -1 then
-      -- Do something here for the player who called this command
-      PlayerResource:SetGold(playerID, 1000)
-    end
-  end
-
-  print( '*********************************************' )
-end
 
 function GameMode:GreedIsGood()
   local cmdPlayer = Convars:GetCommandClient()

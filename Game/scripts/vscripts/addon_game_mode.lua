@@ -35,6 +35,8 @@ function Precache( context )
 
 
   -- Entire heroes (sound effects/voice/models/particles) can be precached with PrecacheUnitByNameSync
+
+  
   -- Custom units from npc_units_custom.txt can also have all of their abilities and precache{} blocks precached in this way
   PrecacheUnitByNameSync("npc_dota_hero_wisp", context)
   PrecacheUnitByNameSync("npc_dota_hero_warlock", context)
@@ -51,8 +53,7 @@ end
 
 -- Create the game mode when we activate
 function Activate()
-  GameRules.GameMode = GameMode()
-  GameRules.GameMode:InitGameMode()
+
   GameRules.maxFood = 100
   GameRules.gold = {}
   GameRules.lumber = {}
@@ -74,4 +75,6 @@ function Activate()
   GameRules.startTime = 0
   GameRules.colorCounter = 1
   GameRules.playerCount = 0
+  GameRules.GameMode = GameMode()
+  GameRules.GameMode:InitGameMode()
 end
